@@ -302,6 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 450220621}
   - component: {fileID: 450220622}
+  - component: {fileID: 450220623}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -339,6 +340,18 @@ MonoBehaviour:
   gridLayoutGroup: {fileID: 42136969}
   nodePrefab: {fileID: 8690104410782597567, guid: b3aaf808b4bc383438739e4b3dd7fd84, type: 3}
   levelConfig: {fileID: 11400000, guid: e82ccc22e0dbc4e4a91aea304d3cc601, type: 2}
+--- !u!114 &450220623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450220620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaba0a30778a70142a5e649e2f6bd530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
