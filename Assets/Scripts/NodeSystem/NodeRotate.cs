@@ -12,6 +12,11 @@ namespace IG.NodeSystem
         private readonly Dictionary<Node, bool> _connectionCache = new();
         private GridManager _gridManager;
 
+        private void Awake() 
+        {
+            
+        }
+
         public void Initialize(Node node, GridType type, GridManager gridManager) 
         {
             _node = node;
@@ -21,6 +26,7 @@ namespace IG.NodeSystem
         
         private void OnMouseDown() 
         {
+            Debug.Log("OnMouseDown");
             Rotate();
         }
 

@@ -15,4 +15,12 @@ MonoBehaviour:
   gridType: 0
   nodeSize: 100
   spacing: 5
-  grid: []
+  grid:
+  - nodePrefab: {fileID: 8690104410782597567, guid: b3aaf808b4bc383438739e4b3dd7fd84, type: 3}
+    connectableSides: 01000100
+  - nodePrefab: {fileID: 8690104410782597567, guid: b3aaf808b4bc383438739e4b3dd7fd84, type: 3}
+    connectableSides: 01000100
+  - nodePrefab: {fileID: 8690104410782597567, guid: 2769cf9da275ed643af78e3cc4976a63, type: 3}
+    connectableSides: 01000100
+  - nodePrefab: {fileID: 8690104410782597567, guid: a4e918eb46544ae49b712b8f62d2c5d7, type: 3}
+    connectableSides: 00000100

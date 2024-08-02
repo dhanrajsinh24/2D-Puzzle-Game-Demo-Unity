@@ -1,7 +1,14 @@
+using UnityEngine;
+
 namespace IG.NodeSystem 
 {
     public class CableNode : Node
     {
+        private void Awake() 
+        {
+            
+        }
+
         protected override void UpdateVisualFeedback()
         {
             // Update the node's visual state based on connection status
@@ -13,6 +20,11 @@ namespace IG.NodeSystem
             {
                 // Code to disable glow effect
             }
+        }
+
+        protected override void NodeClicked()
+        {
+            Debug.Log($"{gameObject.name} clicked");
         }
     }
 }

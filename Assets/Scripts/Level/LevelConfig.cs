@@ -15,8 +15,8 @@ namespace IG.Level
         [System.Serializable]
         public class NodeData
         {
-            public int row;
-            public int column;
+            //public int row;
+            //public int column;
             public GameObject nodePrefab; // Prefab for the node
             
             // TODO Length should be validated to either 4(square) or 6(Hexagonal)
@@ -96,16 +96,14 @@ namespace IG.Level
 
         public NodeData GetGridElement(int row, int column)
         {
-            if (row >= 0 && row < Rows && column >= 0 && column < Columns)
-            {
-                int index = row * Columns + column;
-                return grid[index];
-            }
-            else
+            if (grid.Length < 2 || row < 0 || row >= Rows || column < 0 || column >= Columns)
             {
                 Debug.LogWarning("Grid position out of bounds");
                 return null;
             }
+
+            int index = row * Columns + column;
+            return grid[index];
         }
     }
 }

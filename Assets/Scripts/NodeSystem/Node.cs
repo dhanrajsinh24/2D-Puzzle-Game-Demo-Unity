@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace IG.NodeSystem 
 {
     /// <summary>
     /// Core script to manage the Node
     /// </summary>
-    public abstract class Node : MonoBehaviour, IConnectable
+    public abstract class Node : MonoBehaviour, IConnectable, IPointerClickHandler
     {
         public int Row { get; private set; } // row index of current node (to know its place)
         public int Column { get; private set; } // column index same as row
@@ -28,5 +29,12 @@ namespace IG.NodeSystem
         }
 
         protected abstract void UpdateVisualFeedback(); // Update the node's visual state
+
+        protected abstract void NodeClicked();
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            NodeClicked();
+        }
     }
 }

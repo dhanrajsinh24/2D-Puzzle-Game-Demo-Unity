@@ -1,3 +1,6 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+
 namespace IG.NodeSystem 
 {
     public class ComputerNode : Node, IResultNode
@@ -13,6 +16,11 @@ namespace IG.NodeSystem
             {
                 // Code to disable glow effect
             }
+        }
+
+        protected override void NodeClicked()
+        {
+            Debug.Log($"{gameObject.name} clicked");
         }
     }
 }
