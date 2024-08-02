@@ -10,7 +10,7 @@ namespace IG.Factory
         public static Node CreateNode(LevelConfig.NodeData nodeData, Transform parent, 
         int row, int column, LevelConfig.GridType gridType, GridManager gridManager)
         {
-            // Instantiate the prefab
+            // Instantiate the Node
             var nodeObj = Object.Instantiate(nodeData.nodePrefab, parent);
             var node = nodeObj.GetComponent<Node>();
 
@@ -23,8 +23,6 @@ namespace IG.Factory
                 var rotatableNode = nodeObj.GetComponent<RotatableNode>();
                 rotatableNode.Initialize(gridType, gridManager);
             }
-
-            // Add other node types and their specific components here if needed
 
             return node;
         }

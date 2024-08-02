@@ -8,8 +8,8 @@ namespace IG.Level
     {
         public enum GridType
         {
-            Square,
-            Hexagonal
+            Square = 4,
+            Hexagonal = 6
         }
 
         public enum NodeType 

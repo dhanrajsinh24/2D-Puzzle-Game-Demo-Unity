@@ -11,7 +11,6 @@ namespace IG.NodeSystem
     [RequireComponent(typeof(Node))]
     public class RotatableNode : Node, IRotatable
     {
-        private Node _node;
         private GridType _gridType; 
         private readonly Dictionary<Node, bool> _connectionCache = new();
         private GridManager _gridManager;
@@ -52,22 +51,23 @@ namespace IG.NodeSystem
             }
         }
 
+        // Shift the connectableSides array based on grid type
         private void ShiftConnectibleSides()
         {
-            // Shift the connectableSides array
-            bool lastSide = _node.ConnectableSides[3];
-            for (int i = 3; i > 0; i--)
+            var size = (int)_gridType;
+            bool lastSide = ConnectableSides[size - 1];
+            for (int i = size - 1; i > 0; i--)
             {
-                _node.ConnectableSides[i] = _node.ConnectableSides[i - 1];
+                ConnectableSides[i] = ConnectableSides[i - 1];
             }
-            _node.ConnectableSides[0] = lastSide;
+            ConnectableSides[0] = lastSide;
         }
 
         public bool CanConnectWith(Node other)
         {
             // Calculate row and column difference
-            int rowDiff = other.Row - _node.Row;
-            int colDiff = other.Column - _node.Column;
+            int rowDiff = other.Row - Row;
+            int colDiff = other.Column - Column;
 
             // Define a set of connection pairs based on the node's shape
             int[,] connectionPairs;
@@ -108,7 +108,7 @@ namespace IG.NodeSystem
                 if (IsMatchingConnection(rowDiff, colDiff, connectionPairs[i, 0]))
                 {
                     // Check if this node's side can connect with the other node's corresponding side
-                    return _node.ConnectableSides[connectionPairs[i, 0]] && other.ConnectableSides[connectionPairs[i, 1]];
+                    return ConnectableSides[connectionPairs[i, 0]] && other.ConnectableSides[connectionPairs[i, 1]];
                 }
             }
 
@@ -181,12 +181,12 @@ namespace IG.NodeSystem
                 };
 
             // Loop through possible connections based on the current type
-            for (int i = 0; i < _node.ConnectableSides.Length; i++)
+            for (int i = 0; i < ConnectableSides.Length; i++)
             {
-                if (_node.ConnectableSides[i])  // Only consider sides that are connectable
+                if (ConnectableSides[i])  // Only consider sides that are connectable
                 {
-                    int neighborRow = _node.Row + offsets[i].Item1;
-                    int neighborColumn = _node.Column + offsets[i].Item2;
+                    int neighborRow = Row + offsets[i].Item1;
+                    int neighborColumn = Column + offsets[i].Item2;
 
                     yield return _gridManager.GetNodeAt(neighborRow, neighborColumn);
                 }
