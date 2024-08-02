@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a2f95023dba1442b875785d44b6352, type: 3}
   m_Name: Level
   m_EditorClassIdentifier: 
-  gridType: 0
-  nodeSize: 100
+  gridType: 4
+  nodeSize: 150
   spacing: 5
   grid:
   - nodePrefab: {fileID: 8690104410782597567, guid: b3aaf808b4bc383438739e4b3dd7fd84, type: 3}
