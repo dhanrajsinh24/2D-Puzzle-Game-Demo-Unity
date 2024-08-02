@@ -1,6 +1,6 @@
+using IG.Factory;
 using IG.Level;
 using IG.NodeSystem;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,23 +37,13 @@ namespace IG.Controller
                     LevelConfig.NodeData nodeData = levelConfig.GetGridElement(i, j);
                     if (nodeData != null && nodeData.nodePrefab != null)
                     {
-                        var nodeObj = Instantiate(nodeData.nodePrefab, gridLayoutGroup.transform);
-                        var node = nodeObj.GetComponent<Node>();
-                        _nodeGrid[i, j] = node;
-                        
                         // Initialize the node with its specific data from level config
-                        node.Initialize(i, j, nodeData.connectableSides);
-
-                        if(nodeData.nodeType != LevelConfig.NodeType.WiFiNode) 
-                        {
-                            //Add script to enable rotation capability
-                            var nodeRotate = node.AddComponent<NodeRotate>();
-                            nodeRotate.Initialize(node, levelConfig.gridType, this);
-                        }
+                        _nodeGrid[i, j] = NodeFactory.CreateNode(nodeData, gridLayoutGroup.transform,
+                        i, j, levelConfig.gridType, this);
                     }
                     else
                     {
-                        Debug.LogError($"Node prefab is missing at position ({i}, {j})");
+                        Debug.Log($"Empty at position ({i}, {j})");
                     }
                 }
             }

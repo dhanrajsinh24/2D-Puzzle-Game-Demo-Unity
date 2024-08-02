@@ -8,18 +8,24 @@ namespace IG.NodeSystem
     /// <summary>
     /// Script enables the node to Rotate on click
     /// </summary>
-    public class NodeRotate : MonoBehaviour, IRotatable
+    [RequireComponent(typeof(Node))]
+    public class RotatableNode : Node, IRotatable
     {
         private Node _node;
         private GridType _gridType; 
         private readonly Dictionary<Node, bool> _connectionCache = new();
         private GridManager _gridManager;
 
-        public void Initialize(Node node, GridType type, GridManager gridManager) 
+        public void Initialize(GridType type, GridManager gridManager) 
         {
-            _node = node;
             _gridType = type;
             _gridManager = gridManager;
+        }
+
+        public override void NodeClicked()
+        {
+            Debug.Log($"{gameObject.name} clicked");
+            Rotate();
         }
 
         public void Rotate()
@@ -31,6 +37,19 @@ namespace IG.NodeSystem
             ShiftConnectibleSides();
 
             CheckConnections();
+        }
+
+        protected override void UpdateVisualFeedback()
+        {
+            // Update the node's visual state based on connection status
+            if (isConnected)
+            {
+                // Code to enable glow effect
+            }
+            else
+            {
+                // Code to disable glow effect
+            }
         }
 
         private void ShiftConnectibleSides()
