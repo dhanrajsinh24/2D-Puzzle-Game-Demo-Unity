@@ -10,6 +10,16 @@ namespace IG.Factory
         public static Node CreateNode(LevelConfig.NodeData nodeData, Transform parent, 
         int row, int column, LevelConfig.GridType gridType, GridManager gridManager)
         {
+            if(nodeData.nodeType.Equals(LevelConfig.NodeType.EmptyNode))
+            {
+                Debug.Log($"Empty at position ({row}, {column})");
+                
+                // Instantiate the Empty node to fill the array space
+                Object.Instantiate(nodeData.nodePrefab, parent);
+
+                return null;
+            }
+            
             // Instantiate the Node
             var nodeObj = Object.Instantiate(nodeData.nodePrefab, parent);
             var node = nodeObj.GetComponent<Node>();

@@ -35,7 +35,7 @@ namespace IG.Controller
                 for (int j = 0; j < levelConfig.Columns; j++)
                 {
                     LevelConfig.NodeData nodeData = levelConfig.GetGridElement(i, j);
-                    if (nodeData != null && nodeData.nodePrefab != null)
+                    if (nodeData != null) 
                     {
                         // Initialize the node with its specific data from level config
                         _nodeGrid[i, j] = NodeFactory.CreateNode(nodeData, gridLayoutGroup.transform,
@@ -43,7 +43,7 @@ namespace IG.Controller
                     }
                     else
                     {
-                        Debug.Log($"Empty at position ({i}, {j})");
+                        Debug.LogError("nodeData must not be null");
                     }
                 }
             }

@@ -16,7 +16,8 @@ namespace IG.Level
         {
             WiFiNode,
             ComputerNode,
-            CableNode
+            CableNode,
+            EmptyNode
         }
 
         [System.Serializable]
