@@ -1,3 +1,4 @@
+using IG.Controller;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -22,7 +23,7 @@ namespace IG.NodeSystem
             ConnectableSides = initialConnectableSides;
         }
 
-        protected void SetConnectionStatus(bool status)
+        public void SetConnectionStatus(bool status)
         {
             isConnected = status;
             UpdateVisualFeedback();
@@ -30,7 +31,7 @@ namespace IG.NodeSystem
 
         protected abstract void UpdateVisualFeedback(); // Update the node's visual state
 
-        protected abstract void NodeClicked();
+        public abstract void NodeClicked();
 
         public void OnPointerClick(PointerEventData eventData)
         {

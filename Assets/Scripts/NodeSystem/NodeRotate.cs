@@ -5,6 +5,9 @@ using IG.Controller;
 
 namespace IG.NodeSystem 
 {
+    /// <summary>
+    /// Script enables the node to Rotate on click
+    /// </summary>
     public class NodeRotate : MonoBehaviour, IRotatable
     {
         private Node _node;
@@ -12,27 +15,16 @@ namespace IG.NodeSystem
         private readonly Dictionary<Node, bool> _connectionCache = new();
         private GridManager _gridManager;
 
-        private void Awake() 
-        {
-            
-        }
-
         public void Initialize(Node node, GridType type, GridManager gridManager) 
         {
             _node = node;
             _gridType = type;
             _gridManager = gridManager;
         }
-        
-        private void OnMouseDown() 
-        {
-            Debug.Log("OnMouseDown");
-            Rotate();
-        }
 
         public void Rotate()
         {
-            //TODO Rotate animation
+            // TODO Rotate animation
             // Rotate the Node by 90 degrees clockwise
             transform.Rotate(0, 0, -90);
 

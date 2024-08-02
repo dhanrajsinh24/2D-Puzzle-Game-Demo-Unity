@@ -1,5 +1,6 @@
 using IG.Level;
 using IG.NodeSystem;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +43,13 @@ namespace IG.Controller
                         
                         // Initialize the node with its specific data from level config
                         node.Initialize(i, j, nodeData.connectableSides);
+
+                        if(nodeData.nodeType != LevelConfig.NodeType.WiFiNode) 
+                        {
+                            //Add script to enable rotation capability
+                            var nodeRotate = node.AddComponent<NodeRotate>();
+                            nodeRotate.Initialize(node, levelConfig.gridType, this);
+                        }
                     }
                     else
                     {

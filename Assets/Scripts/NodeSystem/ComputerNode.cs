@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace IG.NodeSystem 
 {
@@ -18,7 +17,7 @@ namespace IG.NodeSystem
             }
         }
 
-        protected override void NodeClicked()
+        public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
         }

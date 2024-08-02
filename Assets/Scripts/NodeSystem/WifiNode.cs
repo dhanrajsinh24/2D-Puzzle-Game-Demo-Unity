@@ -10,7 +10,7 @@ namespace IG.NodeSystem
             // Code to enable glow effect
         }
 
-        protected override void NodeClicked()
+        public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
             //TODO visual and vibrate feedback

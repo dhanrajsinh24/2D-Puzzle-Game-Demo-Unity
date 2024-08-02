@@ -22,7 +22,7 @@ namespace IG.NodeSystem
             }
         }
 
-        protected override void NodeClicked()
+        public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
         }

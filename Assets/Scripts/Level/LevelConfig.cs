@@ -12,12 +12,20 @@ namespace IG.Level
             Hexagonal
         }
 
+        public enum NodeType 
+        {
+            WiFiNode,
+            ComputerNode,
+            CableNode
+        }
+
         [System.Serializable]
         public class NodeData
         {
             //public int row;
             //public int column;
             public GameObject nodePrefab; // Prefab for the node
+            public NodeType nodeType;
             
             // TODO Length should be validated to either 4(square) or 6(Hexagonal)
             public bool[] connectableSides; //Side bool array to specify which side is connectable (True is so)
