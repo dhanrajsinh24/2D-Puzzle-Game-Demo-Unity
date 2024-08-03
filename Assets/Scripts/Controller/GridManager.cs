@@ -53,6 +53,7 @@ namespace IG.Controller
         {
             if (row >= 0 && row < levelConfig.Rows && column >= 0 && column < levelConfig.Columns)
             {
+                Debug.Log($"Requested node ({row}, {column}).");
                 return _nodeGrid[row, column];
             }
             else

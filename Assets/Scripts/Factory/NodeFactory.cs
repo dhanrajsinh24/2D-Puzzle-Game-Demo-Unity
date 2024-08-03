@@ -24,8 +24,11 @@ namespace IG.Factory
             var nodeObj = Object.Instantiate(nodeData.nodePrefab, parent);
             var node = nodeObj.GetComponent<Node>();
 
+            // We have to take the clone of array so it does not change the base nodeData of Level
+            var connectableSides = (bool[])nodeData.connectableSides.Clone();
+
             // Initialize the node with its data
-            node.Initialize(row, column, nodeData.connectableSides);
+            node.Initialize(row, column, connectableSides);
 
             // Add rotation ability to all nodes except Wifi
             if (nodeData.nodeType != LevelConfig.NodeType.WiFiNode)
