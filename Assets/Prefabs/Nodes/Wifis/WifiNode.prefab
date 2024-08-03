@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282335040
-  m_fontColor: {r: 0.25157225, g: 0.2476167, b: 0.2476167, a: 1}
+    rgba: 4282335295
+  m_fontColor: {r: 0.24705882, g: 0.2509804, b: 0.24706736, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 3434851795015547569}
   - component: {fileID: 3806747344079766380}
   - component: {fileID: -3023416725692839973}
+  - component: {fileID: 7616206079576329859}
   m_Layer: 5
   m_Name: WifiNode
   m_TagString: Untagged
@@ -375,3 +376,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43ba42062be8544f893ff3c28f490c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7616206079576329859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8690104410782597567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4dabf41a9d79046a5dbe9fb806eaf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  images:
+  - {fileID: 6133213980905588030}
+  - {fileID: 1708366194653747448}

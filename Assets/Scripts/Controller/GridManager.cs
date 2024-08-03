@@ -53,12 +53,12 @@ namespace IG.Controller
         {
             if (row >= 0 && row < levelConfig.Rows && column >= 0 && column < levelConfig.Columns)
             {
-                Debug.Log($"Requested node ({row}, {column}).");
+                //Debug.Log($"Requested node ({row}, {column}).");
                 return _nodeGrid[row, column];
             }
             else
             {
-                Debug.LogWarning($"Requested node at ({row}, {column}) is out of bounds.");
+                //Debug.LogWarning($"Requested node at ({row}, {column}) is out of bounds.");
                 return null;
             }
         }

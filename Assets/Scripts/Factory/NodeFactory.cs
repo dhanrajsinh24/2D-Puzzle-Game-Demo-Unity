@@ -28,14 +28,7 @@ namespace IG.Factory
             var connectableSides = (bool[])nodeData.connectableSides.Clone();
 
             // Initialize the node with its data
-            node.Initialize(row, column, connectableSides);
-
-            // Add rotation ability to all nodes except Wifi
-            if (nodeData.nodeType != LevelConfig.NodeType.WiFiNode)
-            {
-                var rotatableNode = nodeObj.GetComponent<RotatableNode>();
-                rotatableNode.Initialize(gridType, gridManager);
-            }
+            node.Initialize(row, column, connectableSides, gridManager, gridType);
 
             return node;
         }

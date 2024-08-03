@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 3434851795015547569}
   - component: {fileID: 3806747344079766380}
   - component: {fileID: 2864732039504637858}
+  - component: {fileID: 2525093551440434838}
   m_Layer: 5
   m_Name: CableNode
   m_TagString: Untagged
@@ -451,3 +452,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2065f1d748a2d4a8c82c36e4c5f213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2525093551440434838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8690104410782597567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4dabf41a9d79046a5dbe9fb806eaf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  images:
+  - {fileID: 4967088368857985490}
+  - {fileID: 2469665664275495644}
+  - {fileID: 239433043679052847}
