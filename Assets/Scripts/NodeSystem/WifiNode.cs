@@ -9,7 +9,7 @@ namespace IG.NodeSystem
 
         private void Start() 
         {
-            SetConnectionStatus(true);
+            SetConnectionStatus(this);
         }
 
         public override void NodeClicked()
@@ -25,7 +25,7 @@ namespace IG.NodeSystem
             {
                 Debug.Log($"Adding {node.gameObject}");
                 _connectedNodes.Add(node);
-                node.SetConnectionStatus(true);
+                node.SetConnectionStatus(this);
             }
         }
 
@@ -36,7 +36,7 @@ namespace IG.NodeSystem
             {
                 Debug.Log($"Removing {node.gameObject}");
                 _connectedNodes.Remove(node);
-                node.SetConnectionStatus(false);
+                node.SetConnectionStatus(null);
             }
         }
 

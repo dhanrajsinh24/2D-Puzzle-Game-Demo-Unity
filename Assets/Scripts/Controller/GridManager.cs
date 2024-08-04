@@ -28,11 +28,11 @@ namespace IG.Controller
         private void GenerateGrid()
         {
             // Initialize nodeGrid with the required size for the current level
-            _nodeGrid = new Node[levelConfig.Rows, levelConfig.Columns];
+            _nodeGrid = new Node[levelConfig.rows, levelConfig.columns];
 
-            for (int i = 0; i < levelConfig.Rows; i++)
+            for (int i = 0; i < levelConfig.rows; i++)
             {
-                for (int j = 0; j < levelConfig.Columns; j++)
+                for (int j = 0; j < levelConfig.columns; j++)
                 {
                     LevelConfig.NodeData nodeData = levelConfig.GetGridElement(i, j);
                     if (nodeData != null) 
@@ -51,7 +51,7 @@ namespace IG.Controller
 
         public Node GetNodeAt(int row, int column)
         {
-            if (row >= 0 && row < levelConfig.Rows && column >= 0 && column < levelConfig.Columns)
+            if (row >= 0 && row < levelConfig.rows && column >= 0 && column < levelConfig.columns)
             {
                 //Debug.Log($"Requested node ({row}, {column}).");
                 return _nodeGrid[row, column];

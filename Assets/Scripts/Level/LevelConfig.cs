@@ -35,15 +35,13 @@ namespace IG.Level
         public GridType gridType = GridType.Square;
         public float nodeSize = 100f;
         public float spacing = 5f;
+        public int rows;
+        public int columns;
         public NodeData[] grid;
-
-        public int Rows { get; private set; }
-        public int Columns { get; private set; }
 
         private void OnValidate()
         {
             ValidateGridSize();
-            CalculateRowsAndColumns();
 
             for (int i = 0; i < grid.Length; i++)
             {
@@ -57,11 +55,10 @@ namespace IG.Level
         public void Initialize(GridLayoutGroup nodeParentGrid)
         {
             ValidateGridSize();
-            CalculateRowsAndColumns();
 
             nodeParentGrid.cellSize = new Vector2(nodeSize, nodeSize);
             nodeParentGrid.spacing = new Vector2(spacing, spacing);
-            nodeParentGrid.constraintCount = gridType == GridType.Square ? Columns : Rows;
+            nodeParentGrid.constraintCount = gridType == GridType.Square ? columns : rows;
         }
 
         private void ValidateGridSize()
@@ -71,30 +68,23 @@ namespace IG.Level
             {
                 Debug.LogError("Grid size must be greater than 0.");
             }
-            else if (gridSize % 2 != 0)
+            
+            if (gridSize % 2 != 0)
             {
                 Debug.LogError("Grid size must be divisible by 2.");
             }
-        }
 
-        private void CalculateRowsAndColumns()
-        {
-            var gridSize = grid.Length;
-            if (gridSize > 0 && gridSize % 2 == 0)
+            if(rows == 0 || columns == 0 || !gridSize.Equals(rows * columns)) 
             {
-                Rows = Columns = gridSize / 2;
-            }
-            else
-            {
-                Debug.LogError("Grid size is not valid for calculation.");
+                Debug.LogError("Grid does not have valid rows or colums or Grid size is not valid");
             }
         }
 
         public void SetGridElement(int row, int column, NodeData element)
         {
-            if (row >= 0 && row < Rows && column >= 0 && column < Columns)
+            if (row >= 0 && row < rows && column >= 0 && column < columns)
             {
-                int index = row * Columns + column;
+                int index = row * columns + column;
                 grid[index] = element;
             }
             else
@@ -105,13 +95,13 @@ namespace IG.Level
 
         public NodeData GetGridElement(int row, int column)
         {
-            if (grid.Length < 2 || row < 0 || row >= Rows || column < 0 || column >= Columns)
+            if (grid.Length < 2 || row < 0 || row >= rows || column < 0 || column >= columns)
             {
                 Debug.LogWarning("Grid position out of bounds");
                 return null;
             }
 
-            int index = row * Columns + column;
+            int index = row * columns + column;
             return grid[index];
         }
     }

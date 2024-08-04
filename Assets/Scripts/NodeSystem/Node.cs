@@ -45,12 +45,18 @@ namespace IG.NodeSystem
             // If the node was connected to WiFi or is now connected, trigger WiFi node to revalidate connections
             if (isConnected && !ConnectedWiFiNode)
             {
-                var neighborWifi = connectableNeighbors.FirstOrDefault().ConnectedWiFiNode;
+                //TODO here still in some cases the wifi not found
+                //please see the screenshot of the error
+                //Probably the only time wifi found is the neighbor of wifi!!
+                var neighborWifi = connectableNeighbors.OfType<WiFiNode>().FirstOrDefault();
                 if(neighborWifi == null) 
                 {
-                    neighborWifi = connectableNeighbors.OfType<WiFiNode>().FirstOrDefault();
+                    neighborWifi = connectableNeighbors.First(neighbor => neighbor.IsConnectedToWifi).ConnectedWiFiNode;
                 }
-                Debug.Log($"wifi {neighborWifi.gameObject.name}");
+
+                if(neighborWifi == null) Debug.LogError($"wifi not found");
+                else Debug.Log($"Wifi {neighborWifi.name}");
+                
                 ConnectedWiFiNode = neighborWifi;
             }
 
@@ -159,11 +165,12 @@ namespace IG.NodeSystem
             return -1; // Default case for unsupported grid types
         }
 
-        public void SetConnectionStatus(bool status)
+        public void SetConnectionStatus(WiFiNode wifi)
         {
-            IsConnectedToWifi = status;
-            Debug.Log($"SetConnectionStatus {status} {gameObject.name}");
-            if(!status) ConnectedWiFiNode = null;
+            IsConnectedToWifi = wifi != null;
+            Debug.Log($"SetConnectionStatus {IsConnectedToWifi} {gameObject.name}");
+            if(wifi == null) ConnectedWiFiNode = null;
+            else ConnectedWiFiNode = wifi;
             UpdateVisualFeedback();
         }
 
