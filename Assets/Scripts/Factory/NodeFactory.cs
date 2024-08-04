@@ -8,7 +8,7 @@ namespace IG.Factory
     public static class NodeFactory
     {
         public static Node CreateNode(LevelConfig.NodeData nodeData, Transform parent, 
-        int row, int column, LevelConfig.GridType gridType, GridManager gridManager)
+        int row, int column, LevelConfig.GridType gridType, IGrid gridManager)
         {
             if(nodeData.nodeType.Equals(LevelConfig.NodeType.EmptyNode))
             {

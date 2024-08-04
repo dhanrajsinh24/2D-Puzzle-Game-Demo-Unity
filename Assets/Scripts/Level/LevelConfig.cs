@@ -53,13 +53,13 @@ namespace IG.Level
             }
         }
 
-        public void Initialize(GridLayoutGroup nodeParentGrid)
+        public void Initialize(Grid nodeParentGrid)
         {
             ValidateGridSize();
 
             nodeParentGrid.cellSize = new Vector2(nodeSize, nodeSize);
-            nodeParentGrid.spacing = new Vector2(spacing, spacing);
-            nodeParentGrid.constraintCount = gridType == GridType.Square ? columns : rows;
+            nodeParentGrid.cellGap = new Vector2(spacing, spacing);
+            //nodeParentGrid.constraintCount = gridType == GridType.Square ? columns : rows;
         }
 
         private void ValidateGridSize()

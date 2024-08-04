@@ -7,7 +7,7 @@ namespace IG.NodeSystem
     public interface IConnectable
     {
         void Initialize(int row, int column, bool[] initialConnectableSides, 
-        GridManager gridManager, GridType gridType);
+        IGrid gridManager, GridType gridType);
         void ApplyInitialRotation(int rotation);
         void SetConnectionStatus(WiFiNode wifi);
         void CheckConnections();

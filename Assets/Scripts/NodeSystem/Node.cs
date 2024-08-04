@@ -10,20 +10,20 @@ namespace IG.NodeSystem
     /// <summary>
     /// Core script to manage the Node
     /// </summary>
-    public abstract class Node : MonoBehaviour, IConnectable, IPointerClickHandler
+    public abstract class Node : MonoBehaviour, IConnectable
     {
         public int Row { get; private set; } // row index of current node (to know its place)
         public int Column { get; private set; } // column index same as row
         public bool[] ConnectableSides { get; private set; } // Sides that can connect (size 4 for square, 6 for hexagonal)
         public bool IsConnectedToWifi {get; set;} //True if this node is connected to at least one node
         public RectTransform RectTransform { get; private set; }
-        private GridManager _gridManager;
+        private IGrid _gridManager;
         protected GridType gridType;
         [SerializeField] private ColorFeedback _colorFeedback;
         public WiFiNode ConnectedWiFiNode {get; private set;} // Reference to the connected WiFiNode
 
         public virtual void Initialize(int row, int column, bool[] initialConnectableSides, 
-        GridManager gridManager, GridType gridType)
+        IGrid gridManager, GridType gridType)
         {
             Row = row;
             Column = column;
@@ -213,10 +213,5 @@ namespace IG.NodeSystem
         }
 
         public abstract void NodeClicked();
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            NodeClicked();
-        }
     }
 }
