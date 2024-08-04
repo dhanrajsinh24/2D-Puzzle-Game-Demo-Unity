@@ -15,20 +15,29 @@ namespace IG.Controller
             {
                 _connectedComputersCount++;
 
-                // Check if level is complete
+                // Check if the all computers are connected to wifi
                 if (_connectedComputersCount == TotalComputers)
                 {
-                    OnCircuitComplete();
+                    // all Computers are connected
+                    CompleteValidation();
                 }
             }
             else _connectedComputersCount--;
         }
 
-        private void OnCircuitComplete()
+        private void CompleteValidation()
         {
-            Debug.Log("Level Complete! All computers are connected.");
+            Debug.Log("All computers are connected.");
             
+            ClearData();
+
             OnValidated?.Invoke();
+        }
+
+        private void ClearData() 
+        {
+            _connectedComputersCount = 0;
+            TotalComputers = 0;
         }
     }
 }

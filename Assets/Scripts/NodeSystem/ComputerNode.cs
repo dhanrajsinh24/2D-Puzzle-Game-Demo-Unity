@@ -10,6 +10,7 @@ namespace IG.NodeSystem
         {
             //Not a good way to get the reference but it should be fine for this demo game
             //Should be assigned from the initialization when this Node is instantiated
+            //There are several other places in which Find is used
             _circuitValidation = FindAnyObjectByType<CircuitValidation>();
             
             //Register as a computer
@@ -33,7 +34,6 @@ namespace IG.NodeSystem
             {
                 UnityEngine.Debug.LogError("CircuitValidation not found");
             }
-            
         }
     }
 }
