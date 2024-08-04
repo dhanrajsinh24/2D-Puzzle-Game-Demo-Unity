@@ -26,7 +26,7 @@ namespace IG.Factory
 
             // We have to take the clone of array so it does not change the base nodeData of Level
             var connectableSides = (bool[])nodeData.connectableSides.Clone();
-
+            
             // Initialize the node with its data and apply the required rotation
             node.Initialize(row, column, connectableSides, gridManager, gridType);
             node.ApplyInitialRotation(nodeData.initialRotation);

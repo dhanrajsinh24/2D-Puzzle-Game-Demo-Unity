@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace IG.Controller 
@@ -5,7 +6,8 @@ namespace IG.Controller
     public class CircuitValidation : MonoBehaviour
     {
         private int _connectedComputersCount = 0;
-        private int _totalComputers = 0;
+        public int TotalComputers {get; set;}
+        public static Action OnValidated;
 
         public void UpdateConnectedComputersCount(bool isConnected)
         {
@@ -14,7 +16,7 @@ namespace IG.Controller
                 _connectedComputersCount++;
 
                 // Check if level is complete
-                if (_connectedComputersCount == _totalComputers)
+                if (_connectedComputersCount == TotalComputers)
                 {
                     OnCircuitComplete();
                 }
@@ -25,7 +27,8 @@ namespace IG.Controller
         private void OnCircuitComplete()
         {
             Debug.Log("Level Complete! All computers are connected.");
-            // Additional logic for level completion
+            
+            OnValidated?.Invoke();
         }
     }
 }

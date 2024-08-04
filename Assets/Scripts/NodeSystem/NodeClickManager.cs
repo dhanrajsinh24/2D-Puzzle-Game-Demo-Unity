@@ -1,3 +1,4 @@
+using System;
 using IG.NodeSystem;
 using UnityEngine;
 
@@ -6,6 +7,23 @@ namespace IG.Controller
     public class NodeClickManager : MonoBehaviour
     {
         private int _layerMask;
+        private bool _isClickable;
+
+        private void Awake() 
+        {
+            //Start clicking of nodes
+            _isClickable = true;
+        }
+
+        private void OnEnable() 
+        {
+            CircuitValidation.OnValidated += StopNodeClick;
+        }
+
+        private void OnDisable() 
+        {
+            CircuitValidation.OnValidated += StopNodeClick;
+        }
 
         private void Start() 
         {
@@ -21,6 +39,8 @@ namespace IG.Controller
 
         private void HandleTouchInput()
         {
+            if(!_isClickable) return;
+
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
@@ -61,6 +81,12 @@ namespace IG.Controller
         {
             Debug.Log($"{clickedNode.name} clicked");
             clickedNode.GetComponent<Node>().NodeClicked();
+        }
+
+        private void StopNodeClick()
+        {
+            //Stop clicking of nodes
+            _isClickable = false;
         }
     }
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System.Linq;
 using IG.Controller;
@@ -196,6 +195,7 @@ namespace IG.NodeSystem
             return -1; // Default case for unsupported grid types
         }
 
+        // Sets connection status and wifi asignment
         public void SetConnectionStatus(WiFiNode wifi)
         {
             IsConnectedToWifi = wifi != null;
@@ -206,7 +206,7 @@ namespace IG.NodeSystem
         }
 
         // Update the node's visual state
-        private void UpdateVisualFeedback() 
+        protected virtual void UpdateVisualFeedback() 
         {
            // Update the node's visual state based on connection status
             _colorFeedback.ToggleGlow(IsConnectedToWifi);
