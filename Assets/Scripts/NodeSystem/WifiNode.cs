@@ -7,7 +7,7 @@ namespace IG.NodeSystem
     {
         private List<Node> _connectedNodes = new();
 
-        private void Start() 
+        private void Awake() 
         {
             SetConnectionStatus(this);
         }

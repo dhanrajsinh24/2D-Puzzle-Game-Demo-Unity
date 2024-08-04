@@ -8,6 +8,7 @@ namespace IG.NodeSystem
     {
         void Initialize(int row, int column, bool[] initialConnectableSides, 
         GridManager gridManager, GridType gridType);
+        void ApplyInitialRotation(int rotation);
         void SetConnectionStatus(WiFiNode wifi);
         void CheckConnections();
         bool CanConnectWith(Node other, int connectableSideIndex);

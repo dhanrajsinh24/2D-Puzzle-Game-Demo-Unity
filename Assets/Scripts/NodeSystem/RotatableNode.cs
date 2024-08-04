@@ -23,17 +23,5 @@ namespace IG.NodeSystem
 
             CheckConnections();
         }
-
-        // Shift the connectableSides array based on grid type
-        private void ShiftConnectibleSides()
-        {
-            var size = (int)gridType;
-            bool lastSide = ConnectableSides[size - 1];
-            for (int i = size - 1; i > 0; i--)
-            {
-                ConnectableSides[i] = ConnectableSides[i - 1];
-            }
-            ConnectableSides[0] = lastSide;
-        }
     }
 }

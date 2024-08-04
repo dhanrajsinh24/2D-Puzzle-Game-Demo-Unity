@@ -23,13 +23,14 @@ namespace IG.Level
         [System.Serializable]
         public class NodeData
         {
-            //public int row;
-            //public int column;
             public GameObject nodePrefab; // Prefab for the node
             public NodeType nodeType;
             
-            // TODO Length should be validated to either 4(square) or 6(Hexagonal)
-            public bool[] connectableSides; //Side bool array to specify which side is connectable (True is so)
+            // Length should be validated to either 4(square) or 6(Hexagonal)
+            public bool[] connectableSides; // Side bool array to specify which side is connectable (True is so)
+
+            [Range(0, 5)] // Range is 0-5 to support 4 rotations for Square and 6 for Hexagonal
+            public int initialRotation; // Number of rotations (0 for no rotation)
         }
 
         public GridType gridType = GridType.Square;

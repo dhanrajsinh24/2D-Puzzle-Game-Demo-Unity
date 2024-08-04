@@ -19,7 +19,7 @@ namespace IG.NodeSystem
         public RectTransform RectTransform { get; private set; }
         private GridManager _gridManager;
         protected GridType gridType;
-        private ColorFeedback _colorFeedback;
+        [SerializeField] private ColorFeedback _colorFeedback;
         public WiFiNode ConnectedWiFiNode {get; private set;} // Reference to the connected WiFiNode
 
         public virtual void Initialize(int row, int column, bool[] initialConnectableSides, 
@@ -28,10 +28,44 @@ namespace IG.NodeSystem
             Row = row;
             Column = column;
             RectTransform = GetComponent<RectTransform>();
-            _colorFeedback = GetComponent<ColorFeedback>();
             _gridManager = gridManager;
             this.gridType = gridType;
             ConnectableSides = initialConnectableSides;
+        }
+
+        // Function to Apply initial rotation to the node
+        public void ApplyInitialRotation(int initialRotation)
+        {
+            float angle = 0f;
+
+            if (gridType == GridType.Square)
+            {
+                angle = initialRotation * -90f; // 4 possible rotations
+            }
+            else if (gridType == GridType.Hexagonal)
+            {
+                angle = initialRotation * -60f; // 6 possible rotations
+            }
+
+            transform.Rotate(Vector3.forward, angle); // Rotate around the Z-axis
+
+            //Update connectible sides by shifting it by rotation multiplier times
+            for(int i = 0; i < initialRotation; i++) 
+            {
+                ShiftConnectibleSides();
+            }
+        }
+
+        // Shift the connectableSides array based on grid type
+        public void ShiftConnectibleSides()
+        {
+            var size = (int)gridType;
+            bool lastSide = ConnectableSides[size - 1];
+            for (int i = size - 1; i > 0; i--)
+            {
+                ConnectableSides[i] = ConnectableSides[i - 1];
+            }
+            ConnectableSides[0] = lastSide;
         }
 
         public void CheckConnections()
@@ -45,9 +79,6 @@ namespace IG.NodeSystem
             // If the node was connected to WiFi or is now connected, trigger WiFi node to revalidate connections
             if (isConnected && !ConnectedWiFiNode)
             {
-                //TODO here still in some cases the wifi not found
-                //please see the screenshot of the error
-                //Probably the only time wifi found is the neighbor of wifi!!
                 var neighborWifi = connectableNeighbors.OfType<WiFiNode>().FirstOrDefault();
                 if(neighborWifi == null) 
                 {
