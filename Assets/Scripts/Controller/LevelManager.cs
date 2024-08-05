@@ -100,31 +100,30 @@ namespace IG.Controller
 
         public void CompleteLevel()
         {
-            //Cache last unlocked value
+            //Cache last unlocked level
             var lastUnlockedLevel = databaseManager.LastUnlockedLevel;
+            Debug.Log($"last unlocked {lastUnlockedLevel}");
 
             //Save level data, unlocking new level, and score to database
             var score = _scoreManager.CalculateScore(
                 _currentLevelConfig.minMoves, _currentLevelConfig.maxMoves, _playerMoves);
             Debug.Log($"Level {_currentLevel}, Score {score}");
-            databaseManager.SaveLevelData(_currentLevel, score);
+            databaseManager.SaveLevelData(_currentLevel, score); 
 
             //If we have finished the level for the first time
-            if(_currentLevel.Equals(lastUnlockedLevel)) 
+            // Check for next level availability
+            if(_currentLevel.Equals(lastUnlockedLevel) && lastUnlockedLevel.Equals(MaxLevel)) 
             {
-                if (lastUnlockedLevel.Equals(MaxLevel))
-                {
-                    Debug.Log("Last level");
-                    // TODO need to disable next level button or show UI for 
-                    // All levels are completed
-                }
-                else 
-                {
-                    // TODO need to load next level
-                    int levelToLoad = _currentLevel + 1;
-                    LoadLevel(levelToLoad);
-                }
-            } 
+                Debug.Log("Last level");
+                // TODO need to disable next level button or show UI for 
+                // All levels are completed
+            }
+            else 
+            {
+                // TODO need to load next level
+                int levelToLoad = _currentLevel + 1;
+                LoadLevel(levelToLoad);
+            }
         }
     }
 }

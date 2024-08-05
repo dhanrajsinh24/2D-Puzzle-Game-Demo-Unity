@@ -76,9 +76,10 @@ namespace IG.Controller
 
             var levelData = GetLevelData(level);
 
-            if(levelData != null && levelData.maximumScore < score) 
+            if(levelData != null) 
             {
-                levelData.maximumScore = score;
+                if(levelData.maximumScore < score)
+                    levelData.maximumScore = score;
             }
             else 
             {
