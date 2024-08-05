@@ -1,4 +1,3 @@
-using System;
 using IG.NodeSystem;
 using UnityEngine;
 
@@ -8,6 +7,16 @@ namespace IG.Controller
     {
         private int _layerMask;
         private bool _isClickable;
+        private ScoreManager  _scoreManager;
+
+        public void Initialize(ScoreManager scoreManager) 
+        {
+            _scoreManager = scoreManager;
+
+            // Set up a layer mask to only include the "Node" layer
+            int nodeLayer = LayerMask.NameToLayer("Node");
+            _layerMask = 1 << nodeLayer;
+        }
 
         private void OnEnable() 
         {
@@ -19,13 +28,6 @@ namespace IG.Controller
         {
             CircuitValidation.OnValidated -= StopNodeClick;
             LevelManager.OnLevelLoaded -= StartNodeClick;
-        }
-
-        private void Start() 
-        {
-            // Set up a layer mask to only include the "Node" layer
-            int nodeLayer = LayerMask.NameToLayer("Node");
-            _layerMask = 1 << nodeLayer;
         }
 
         private void Update()
@@ -77,6 +79,7 @@ namespace IG.Controller
         {
             Debug.Log($"{clickedNode.name} clicked");
             clickedNode.GetComponent<Node>().NodeClicked();
+            _scoreManager.PlayerMoves++;
         }
 
         private void StartNodeClick() 

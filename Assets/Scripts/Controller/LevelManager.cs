@@ -15,7 +15,6 @@ namespace IG.Controller
         [SerializeField] private SpriteNodeGrid gridParentPrefab; // Grid parent to initialize on level load
         
         private int _currentLevel;
-        private int _playerMoves;
         private SpriteNodeGrid _currentGridParent;
         private ScoreManager _scoreManager;
         private AddressableLoader _addressableLoader;
@@ -37,6 +36,9 @@ namespace IG.Controller
             _currentLevel = databaseManager.Initialize(this);
 
             _scoreManager = new ScoreManager();
+            var nodeClickManager = gameObject.AddComponent<NodeClickManager>();
+            nodeClickManager.Initialize(_scoreManager);
+
             _addressableLoader = new AddressableLoader();
 
             // We will play the level at start which is the last played (Not the last unlocked)
@@ -55,12 +57,14 @@ namespace IG.Controller
 
         public void LoadLevel(int level)
         {
+             _scoreManager.PlayerMoves = 0;
+             
             //If any level loaded previously then delete the grid
             if(_currentGridParent) 
             {
                 Destroy(_currentGridParent.gameObject);
             }
-            
+
             // Making sure the level being loaded is within the valid range
             if (level > 0 && level <= MaxLevel && level <= databaseManager.LastUnlockedLevel)
             {
@@ -108,8 +112,7 @@ namespace IG.Controller
             Debug.Log($"last unlocked {lastUnlockedLevel}");
 
             //Save level data, unlocking new level, and score to database
-            var score = _scoreManager.CalculateScore(
-                _currentLevelConfig.minMoves, _currentLevelConfig.maxMoves, _playerMoves);
+            var score = _scoreManager.CalculateScore(_currentLevelConfig.minMoves, _currentLevelConfig.maxMoves);
             Debug.Log($"Level {_currentLevel}, Score {score}");
             databaseManager.SaveLevelData(_currentLevel, score); 
 
