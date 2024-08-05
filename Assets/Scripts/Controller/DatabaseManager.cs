@@ -48,6 +48,7 @@ namespace IG.Controller
             set 
             {
                 storedData.lastPlayedLevel = value;
+                WriteData();
             }
         }
 
@@ -90,9 +91,6 @@ namespace IG.Controller
                     maximumScore = score
                 });
             }
-
-            //Update last played level to current level
-            LastPlayedLevel = level;
             
             WriteData();
         }

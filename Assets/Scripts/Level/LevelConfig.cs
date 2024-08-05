@@ -69,6 +69,7 @@ namespace IG.Level
             nodeParentGrid.cellGap = new Vector2(spacing, spacing);
         }
 
+        // TODO Grid size, row, column, Required nodes, other validations
         private void ValidateGridSize()
         {
             var gridSize = grid.Length;

@@ -67,6 +67,9 @@ namespace IG.Controller
                 _currentLevel = level;
 
                 Debug.Log($"Loading Level {_currentLevel}");
+                
+                //Update last played level
+                databaseManager.LastPlayedLevel = _currentLevel;
 
                 //Load level config addressable with address
                 //It would take some time!

@@ -9,20 +9,16 @@ namespace IG.Controller
         private int _layerMask;
         private bool _isClickable;
 
-        private void Awake() 
-        {
-            //Start clicking of nodes
-            _isClickable = true;
-        }
-
         private void OnEnable() 
         {
             CircuitValidation.OnValidated += StopNodeClick;
+            LevelManager.OnLevelLoaded += StartNodeClick;
         }
 
         private void OnDisable() 
         {
-            CircuitValidation.OnValidated += StopNodeClick;
+            CircuitValidation.OnValidated -= StopNodeClick;
+            LevelManager.OnLevelLoaded -= StartNodeClick;
         }
 
         private void Start() 
@@ -83,10 +79,16 @@ namespace IG.Controller
             clickedNode.GetComponent<Node>().NodeClicked();
         }
 
+        private void StartNodeClick() 
+        {
+            //Start clicking of nodes
+             _isClickable = true;
+        }
+
         private void StopNodeClick()
         {
-            //Stop clicking of nodes
-            _isClickable = false;
+            //Start clicking of nodes
+            _isClickable = true;
         }
     }
 }
