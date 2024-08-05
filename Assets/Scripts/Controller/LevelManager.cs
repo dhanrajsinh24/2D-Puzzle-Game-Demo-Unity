@@ -1,47 +1,43 @@
 using System;
 using IG.Level;
+using IG.Utils;
 using UnityEngine;
 
 namespace IG.Controller 
 {
     public class LevelManager : MonoBehaviour
     {
-        private const int MaxLevel = 5;
+        private const int MaxLevel = 3;
 
         [SerializeField] private DatabaseManager databaseManager;
-        [SerializeField] private ScoreManager scoreManager;
 
-        /// <summary>
-        /// All levels (Only a few levels should be cached when there will be more)
-        /// </summary>
-        [SerializeField] private LevelConfig[] levelConfigs; 
+        private LevelConfig _currentLevelConfig; 
         [SerializeField] private SpriteNodeGrid gridParentPrefab; // Grid parent to initialize on level load
         
         private int _currentLevel;
-        
+        private int _playerMoves;
         private SpriteNodeGrid _currentGridParent;
+        private ScoreManager _scoreManager;
+        private AddressableLoader _addressableLoader;
 
         public static Action OnLevelLoaded;
         public static Action OnLevelCompleted;
 
         private void Awake()
         {
+            Initialize();
+        }
+
+        private void Initialize() 
+        {
             if (databaseManager == null)
             {
                 databaseManager = FindObjectOfType<DatabaseManager>();
             }
-
-            if (scoreManager == null)
-            {
-                scoreManager = FindObjectOfType<ScoreManager>();
-            }
-
-            if(!levelConfigs.Length.Equals(MaxLevel)) 
-            {
-                Debug.LogError($"Level config must have {MaxLevel} members!");
-            }
-
             _currentLevel = databaseManager.Initialize(this);
+
+            _scoreManager = new ScoreManager();
+            _addressableLoader = new AddressableLoader();
 
             // We will play the level at start which is the last played (Not the last unlocked)
             LoadLevel(_currentLevel);
@@ -62,7 +58,7 @@ namespace IG.Controller
             //If any level loaded previously then delete the grid
             if(_currentGridParent) 
             {
-                Destroy(_currentGridParent);
+                Destroy(_currentGridParent.gameObject);
             }
             
             // Making sure the level being loaded is within the valid range
@@ -72,11 +68,10 @@ namespace IG.Controller
 
                 Debug.Log($"Loading Level {_currentLevel}");
 
-                //Initialize grid of nodes for this level
-                _currentGridParent = Instantiate(gridParentPrefab);
-                _currentGridParent.Initialize(levelConfigs[_currentLevel - 1]);
-
-                OnLevelLoaded?.Invoke();
+                //Load level config addressable with address
+                //It would take some time!
+                var address = $"Level {_currentLevel}"; 
+                _addressableLoader.LoadScriptableObject<LevelConfig>(address, OnLevelConfigLoaded);
             }
             else
             {
@@ -84,9 +79,36 @@ namespace IG.Controller
             }
         }
 
+        // Callback method to handle the loaded object
+        private void OnLevelConfigLoaded(LevelConfig levelConfig)
+        {
+            if (levelConfig != null)
+            {
+                _currentLevelConfig = levelConfig;
+
+                //Initialize grid of nodes for this level
+                _currentGridParent = Instantiate(gridParentPrefab);
+                _currentGridParent.Initialize(_currentLevelConfig);
+
+                OnLevelLoaded?.Invoke();
+            }
+            else
+            {
+                Debug.LogError("Failed to load LevelConfig.");
+            }
+        }
+
         public void CompleteLevel()
         {
+            //Cache last unlocked value
             var lastUnlockedLevel = databaseManager.LastUnlockedLevel;
+
+            //Save level data, unlocking new level, and score to database
+            var score = _scoreManager.CalculateScore(
+                _currentLevelConfig.minMoves, _currentLevelConfig.maxMoves, _playerMoves);
+            Debug.Log($"Level {_currentLevel}, Score {score}");
+            databaseManager.SaveLevelData(_currentLevel, score);
+
             //If we have finished the level for the first time
             if(_currentLevel.Equals(lastUnlockedLevel)) 
             {
@@ -99,11 +121,10 @@ namespace IG.Controller
                 else 
                 {
                     // TODO need to load next level
+                    int levelToLoad = _currentLevel + 1;
+                    LoadLevel(levelToLoad);
                 }
-            }
-
-            //Save level data, unlocking new level, and score to database
-            databaseManager.SaveLevelData(_currentLevel, scoreManager.CurrentScore);
+            } 
         }
     }
 }

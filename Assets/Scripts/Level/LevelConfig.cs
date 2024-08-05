@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace IG.Level
 {
@@ -12,7 +11,7 @@ namespace IG.Level
             Hexagonal = 6
         }
 
-        public enum NodeType 
+        public enum NodeType
         {
             WiFiNode,
             ComputerNode,
@@ -25,7 +24,7 @@ namespace IG.Level
         {
             public GameObject nodePrefab; // Prefab for the node
             public NodeType nodeType;
-            
+
             // Length should be validated to either 4(square) or 6(Hexagonal)
             public bool[] connectableSides; // Side bool array to specify which side is connectable (True is so)
 
@@ -36,6 +35,15 @@ namespace IG.Level
         public GridType gridType = GridType.Square;
         public float nodeSize = 100f;
         public float spacing = 5f;
+
+        /// <summary>
+        /// Minimum number of moves for a perfect score
+        /// </summary>
+        public int minMoves;
+        /// <summary>
+        /// Maximum number of moves after which the score will be 1
+        /// </summary>
+        public int maxMoves;
         public int rows;
         public int columns;
         public NodeData[] grid;
@@ -48,7 +56,7 @@ namespace IG.Level
             {
                 if (grid[i] == null)
                 {
-                    Debug.Log($"{i}th element is null");
+                    Debug.Log($"{name} {i}th element is null");
                 }
             }
         }
@@ -66,17 +74,17 @@ namespace IG.Level
             var gridSize = grid.Length;
             if (gridSize <= 0)
             {
-                Debug.LogError("Grid size must be greater than 0.");
-            }
-            
-            if (gridSize % 2 != 0)
-            {
-                Debug.LogError("Grid size must be divisible by 2.");
+                Debug.LogError($"{name} Grid size must be greater than 0.");
             }
 
-            if(rows == 0 || columns == 0 || !gridSize.Equals(rows * columns)) 
+            if (gridSize % 2 != 0)
             {
-                Debug.LogError("Grid does not have valid rows or colums or Grid size is not valid");
+                Debug.LogError($"{name} Grid size must be divisible by 2.");
+            }
+
+            if (rows == 0 || columns == 0 || !gridSize.Equals(rows * columns))
+            {
+                Debug.LogError($"{name} Grid does not have valid rows or colums or Grid size is not valid");
             }
         }
 
@@ -89,7 +97,7 @@ namespace IG.Level
             }
             else
             {
-                Debug.LogWarning("Grid position out of bounds");
+                Debug.LogWarning($"{name} Grid position out of bounds");
             }
         }
 
@@ -97,7 +105,7 @@ namespace IG.Level
         {
             if (grid.Length < 2 || row < 0 || row >= rows || column < 0 || column >= columns)
             {
-                Debug.LogWarning("Grid position out of bounds");
+                Debug.LogWarning($"{name} Grid position out of bounds");
                 return null;
             }
 

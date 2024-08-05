@@ -452,7 +452,6 @@ GameObject:
   - component: {fileID: 1279639632}
   - component: {fileID: 1279639635}
   - component: {fileID: 1279639634}
-  - component: {fileID: 1279639633}
   m_Layer: 0
   m_Name: LevelScripts
   m_TagString: Untagged
@@ -475,18 +474,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1279639633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279639631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1da1ee5bd614fd4eb6df84a820290b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1279639634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,13 +502,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   databaseManager: {fileID: 1279639634}
-  scoreManager: {fileID: 1279639633}
-  levelConfigs:
-  - {fileID: 11400000, guid: e82ccc22e0dbc4e4a91aea304d3cc601, type: 2}
-  - {fileID: 11400000, guid: e82ccc22e0dbc4e4a91aea304d3cc601, type: 2}
-  - {fileID: 11400000, guid: e82ccc22e0dbc4e4a91aea304d3cc601, type: 2}
-  - {fileID: 11400000, guid: e82ccc22e0dbc4e4a91aea304d3cc601, type: 2}
-  - {fileID: 11400000, guid: e82ccc22e0dbc4e4a91aea304d3cc601, type: 2}
   gridParentPrefab: {fileID: 6524190613740913943, guid: b4a00531b06e13543af644492ff6a97b, type: 3}
 --- !u!1 &1896213623
 GameObject:

@@ -10,8 +10,9 @@ namespace IG.Controller
         private LevelConfig _levelConfig; // Level data will be used from this config
         private Node[,] _nodeGrid; // All nodes in the grid are stored here
 
-        public void Initialize(LevelConfig _levelConfig)
+        public void Initialize(LevelConfig levelConfig)
         {
+            _levelConfig = levelConfig;
             _levelConfig.Initialize(gridGroup);
             GenerateGrid();
         }

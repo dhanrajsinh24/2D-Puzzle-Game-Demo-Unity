@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a2f95023dba1442b875785d44b6352, type: 3}
-  m_Name: Level 1
+  m_Name: Level 2
   m_EditorClassIdentifier: 
   gridType: 4
   nodeSize: 1
@@ -18,7 +18,7 @@ MonoBehaviour:
   minMoves: 0
   maxMoves: 0
   rows: 2
-  columns: 3
+  columns: 2
   grid:
   - nodePrefab: {fileID: 6550401670723040388, guid: 4bbf1c47978e6ca4da87dd00a183b9dc, type: 3}
     nodeType: 1
@@ -28,17 +28,9 @@ MonoBehaviour:
     nodeType: 2
     connectableSides: 00000101
     initialRotation: 0
-  - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
-    nodeType: 2
-    connectableSides: 00000101
-    initialRotation: 0
   - nodePrefab: {fileID: 3954645694065944576, guid: d4736d6dd5b91c04abd650c250ae6fe5, type: 3}
     nodeType: 3
     connectableSides: 00000000
-    initialRotation: 0
-  - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
-    nodeType: 2
-    connectableSides: 00000101
     initialRotation: 0
   - nodePrefab: {fileID: 6550401670723040388, guid: 68d3cccfeaeea554190256f9323e1bb2, type: 3}
     nodeType: 0

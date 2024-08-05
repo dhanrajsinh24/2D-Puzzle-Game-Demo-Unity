@@ -110,8 +110,6 @@ namespace IG.Controller
             Debug.Log("Loading Data..");
             var jsonData = File.ReadAllText(_path);
             storedData = JsonUtility.FromJson<StoredData>(jsonData);
-
-            _levelManager.LoadLevel(storedData.lastPlayedLevel);
         }
 
         private LevelData GetLevelData(int level)
