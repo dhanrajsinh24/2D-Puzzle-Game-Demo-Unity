@@ -27,13 +27,12 @@ namespace IG.Controller
             // Initialize nodeGrid with the required size for the current level
             _nodeGrid = new Node[rows, columns];
 
-            // Calculate the total width and height of the grid
-            float totalWidth = columns * (nodeSize + spacing) - spacing;
-            float totalHeight = rows * (nodeSize + spacing) - spacing;
-
-            // Calculate the offsets to center the grid
-            float offsetX = -totalWidth / 2 + (nodeSize + spacing) / 2;
-            float offsetY = -totalHeight / 2 + (nodeSize + spacing) / 2;
+             // Calculate the center offset to position the grid in the center of the screen
+            Vector3 gridOffset = new (
+                -(columns - 1) * nodeSize * 0.5f, 
+                (rows - 1) * nodeSize * 0.5f, 
+                0f
+            );
 
             for (int row = 0; row < rows; row++)
             {
@@ -48,14 +47,9 @@ namespace IG.Controller
 
                         if(_nodeGrid[row, column] == null) continue; //It is empty node and should be ignored 
 
-                        // Calculate the cell position
+                        // Calculate the cell position by using offset
                         var cellPosition = new Vector3Int(column, -row, 0);
-                        var nodePosition = gridGroup.CellToWorld(cellPosition);
-                        //gridGroup.GetCellCenterWorld
-
-                        // Apply offset to center the grid
-                        nodePosition.x += offsetX;
-                        nodePosition.y += offsetY;
+                        var nodePosition = gridGroup.CellToWorld(cellPosition) + gridOffset;
 
                         // Position the node
                         _nodeGrid[row, column].transform.position = nodePosition;

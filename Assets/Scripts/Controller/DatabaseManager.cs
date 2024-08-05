@@ -15,7 +15,7 @@ namespace IG.Controller
         {
             public string name;
             public int level;
-            public int score;
+            public int maximumScore;
         }
 
         [Serializable]
@@ -28,7 +28,7 @@ namespace IG.Controller
         [SerializeField]private StoredData storedData;
         private LevelManager _levelManager;
 
-        public void Initialize(LevelManager levelManager)
+        public (int, int) Initialize(LevelManager levelManager)
         {
             _levelManager = levelManager;
 
@@ -38,6 +38,8 @@ namespace IG.Controller
             // otherwise create the file
             if(File.Exists(_path)) LoadData();
             else WriteData();
+
+            return (GetLastUnlockedLevel(), storedData.lastPlayedLevel);
         }
 
         public void SaveLevelData(int level, int score)
@@ -48,8 +50,10 @@ namespace IG.Controller
             {
                 name = "Level " + level,
                 level = level,
-                score = score
+                maximumScore = score
             });
+
+            UpdateLastPlayedLevel(level);
             
             WriteData();
         }
@@ -77,12 +81,19 @@ namespace IG.Controller
             return storedData.levelDataList.Find(ld => ld.level == level);
         }
 
-        public int GetLevelDataLength()
+        // last unlocked level is the level which is not finished 
+        // so it's data will not be in the database
+        public int GetLastUnlockedLevel()
         {
-            return storedData.levelDataList.Count;
+            return storedData.levelDataList.Count + 1;
         }
 
-        public void UpdateLastPlayedLevel(int level) 
+        public int GetLastPlayedLevel() 
+        {
+            return storedData.lastPlayedLevel;
+        }
+
+        private void UpdateLastPlayedLevel(int level) 
         {
             storedData.lastPlayedLevel = level;
         }

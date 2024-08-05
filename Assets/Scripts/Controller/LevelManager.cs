@@ -5,8 +5,8 @@ namespace IG.Controller
     public class LevelManager : MonoBehaviour
     {
         private int _currentLevel;
-        private int _lastUnlockedLevel = 1;
-        private const int maxLevel = 5;
+        private int _lastUnlockedLevel;
+        private const int MaxLevel = 5;
 
         [SerializeField] private DatabaseManager databaseManager;
         [SerializeField] private ScoreManager scoreManager;
@@ -23,9 +23,10 @@ namespace IG.Controller
                 scoreManager = FindObjectOfType<ScoreManager>();
             }
 
-            databaseManager.Initialize(this);
+            (_lastUnlockedLevel, _currentLevel) = databaseManager.Initialize(this);
 
-            LoadLevel(_lastUnlockedLevel);
+            // We will play the level at start which is the last played (Not the last unlocked)
+            LoadLevel(databaseManager.GetLastPlayedLevel());
         }
 
         private void OnEnable() 
@@ -41,7 +42,7 @@ namespace IG.Controller
         public void LoadLevel(int level)
         {
             // Making sure the level being loaded is within the valid range
-            if (level > 0 && level <= maxLevel)
+            if (level > 0 && level <= MaxLevel)
             {
                 _currentLevel = level;
 
@@ -53,15 +54,14 @@ namespace IG.Controller
             }
         }
 
-        private void CompleteLevel()
+        public void CompleteLevel()
         {
             //If we have finished the level for the first time
             if(_currentLevel.Equals(_lastUnlockedLevel)) 
             {
-                if (_lastUnlockedLevel < maxLevel)
+                if (_lastUnlockedLevel < MaxLevel)
                 {
                     _lastUnlockedLevel++;
-                    LoadLevel(_lastUnlockedLevel);
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace IG.Controller
             }
 
             //Save level unlocking and score to database
-            databaseManager.SaveLevelData(_lastUnlockedLevel, scoreManager.CurrentScore);
+            databaseManager.SaveLevelData(_currentLevel, scoreManager.CurrentScore);
         }
     }
 }
