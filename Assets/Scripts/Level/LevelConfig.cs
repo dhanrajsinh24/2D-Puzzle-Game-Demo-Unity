@@ -59,7 +59,6 @@ namespace IG.Level
 
             nodeParentGrid.cellSize = new Vector2(nodeSize, nodeSize);
             nodeParentGrid.cellGap = new Vector2(spacing, spacing);
-            //nodeParentGrid.constraintCount = gridType == GridType.Square ? columns : rows;
         }
 
         private void ValidateGridSize()

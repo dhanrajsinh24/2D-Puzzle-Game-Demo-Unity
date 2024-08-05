@@ -28,7 +28,35 @@ namespace IG.Controller
         [SerializeField]private StoredData storedData;
         private LevelManager _levelManager;
 
-        public (int, int) Initialize(LevelManager levelManager)
+        public int LastUnlockedLevel
+        {
+            get 
+            { 
+                // last unlocked level is the level which is not finished 
+                // so it's data will not be in the database
+                return storedData.levelDataList.Count + 1;
+            }
+        }
+
+        //Get the last played level from stored data
+        public int LastPlayedLevel
+        {
+            get 
+            { 
+                return storedData.lastPlayedLevel;
+            }
+            set 
+            {
+                storedData.lastPlayedLevel = value;
+            }
+        }
+
+        /// <summary>
+        /// Initialize all data and returns last played level
+        /// </summary>
+        /// <param name="levelManager"></param>
+        /// <returns></returns>
+        public int Initialize(LevelManager levelManager)
         {
             _levelManager = levelManager;
 
@@ -39,21 +67,31 @@ namespace IG.Controller
             if(File.Exists(_path)) LoadData();
             else WriteData();
 
-            return (GetLastUnlockedLevel(), storedData.lastPlayedLevel);
+            return storedData.lastPlayedLevel;
         }
 
         public void SaveLevelData(int level, int score)
         {
             Debug.Log($"Saving data: Level {level}, Score {score}");
 
-            storedData.levelDataList.Add(new LevelData() 
-            {
-                name = "Level " + level,
-                level = level,
-                maximumScore = score
-            });
+            var levelData = GetLevelData(level);
 
-            UpdateLastPlayedLevel(level);
+            if(levelData != null && levelData.maximumScore < score) 
+            {
+                levelData.maximumScore = score;
+            }
+            else 
+            {
+                storedData.levelDataList.Add(new LevelData() 
+                {
+                    name = "Level " + level,
+                    level = level,
+                    maximumScore = score
+                });
+            }
+
+            //Update last played level to current level
+            LastPlayedLevel = level;
             
             WriteData();
         }
@@ -76,26 +114,9 @@ namespace IG.Controller
             _levelManager.LoadLevel(storedData.lastPlayedLevel);
         }
 
-        public LevelData GetLevelData(int level)
+        private LevelData GetLevelData(int level)
         {
             return storedData.levelDataList.Find(ld => ld.level == level);
-        }
-
-        // last unlocked level is the level which is not finished 
-        // so it's data will not be in the database
-        public int GetLastUnlockedLevel()
-        {
-            return storedData.levelDataList.Count + 1;
-        }
-
-        public int GetLastPlayedLevel() 
-        {
-            return storedData.lastPlayedLevel;
-        }
-
-        private void UpdateLastPlayedLevel(int level) 
-        {
-            storedData.lastPlayedLevel = level;
         }
     }
 }
