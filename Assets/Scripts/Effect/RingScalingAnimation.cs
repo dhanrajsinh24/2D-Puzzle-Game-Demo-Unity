@@ -1,24 +1,22 @@
+using IG.UI;
 using UnityEngine;
 
 namespace IG.Effect 
 {
     public class RingScalingAnimation : MonoBehaviour, IFade
     {
-        private Animation _animation;
+        [SerializeField] private Animation _animation;
 
         public void FadeIn()
         {
-            
+            transform.position = new Vector3(4, 0.3f, 0);
+            _animation.Play();
         }
 
         public void FadeOut()
         {
-            
-        }
-
-        private void Awake() 
-        {
-            _animation = GetComponent<Animation>();
+            transform.position = new Vector3(-4, 0.3f, 0);
+            _animation.Play();
         }
     }
 }

@@ -1,4 +1,5 @@
 using IG.NodeSystem;
+using TMPro;
 using UnityEngine;
 
 namespace IG.Controller
@@ -82,7 +83,7 @@ namespace IG.Controller
             _scoreManager.PlayerMoves++;
         }
 
-        private void StartNodeClick() 
+        private void StartNodeClick(int _, int __)
         {
             //Start clicking of nodes
              _isClickable = true;

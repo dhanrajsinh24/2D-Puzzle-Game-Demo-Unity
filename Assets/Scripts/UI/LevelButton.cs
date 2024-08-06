@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class LevelButton : MonoBehaviour
+namespace IG.UI 
 {
-    // Start is called before the first frame update
-    void Start()
+    public class LevelButton : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField] private Button levelButton;
         
-    }
+        public void UpdateLevelText(int level) 
+        {
+            levelText.text = $"Level {level}";
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void UnlockLevel(bool enable) 
+        {
+            levelButton.interactable = enable;
+        }
     }
 }
+

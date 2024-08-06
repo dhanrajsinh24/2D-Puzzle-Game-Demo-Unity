@@ -15,7 +15,7 @@ namespace IG.Controller
         {
             public string name;
             public int level;
-            public int maximumScore;
+            public int topScore;
         }
 
         [Serializable]
@@ -52,6 +52,16 @@ namespace IG.Controller
             }
         }
 
+        private void OnEnable() 
+        {
+            LevelManager.OnLevelLoaded += UpdateLastPlayedLevel;
+        }
+
+        private void OnDisable() 
+        {
+            LevelManager.OnLevelLoaded -= UpdateLastPlayedLevel;
+        }
+
         /// <summary>
         /// Initialize all data and returns last played level
         /// </summary>
@@ -79,8 +89,8 @@ namespace IG.Controller
 
             if(levelData != null) 
             {
-                if(levelData.maximumScore < score)
-                    levelData.maximumScore = score;
+                if(levelData.topScore < score)
+                    levelData.topScore = score;
             }
             else 
             {
@@ -88,7 +98,7 @@ namespace IG.Controller
                 {
                     name = "Level " + level,
                     level = level,
-                    maximumScore = score
+                    topScore = score
                 });
             }
             
@@ -111,9 +121,15 @@ namespace IG.Controller
             storedData = JsonUtility.FromJson<StoredData>(jsonData);
         }
 
-        private LevelData GetLevelData(int level)
+        public LevelData GetLevelData(int level)
         {
             return storedData.levelDataList.Find(ld => ld.level == level);
+        }
+
+        private void UpdateLastPlayedLevel(int level, int _) 
+        {
+            //Update last played level
+            LastPlayedLevel = level;
         }
     }
 }

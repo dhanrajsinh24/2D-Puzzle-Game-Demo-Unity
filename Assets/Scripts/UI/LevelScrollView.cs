@@ -1,5 +1,6 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using IG.Controller;
 using IG.Level;
 using IG.Utils;
 using UnityEngine;
@@ -7,25 +8,43 @@ using UnityEngine.UI;
 
 namespace IG.UI 
 {
-    public class LevelScrollView : MonoBehaviour, IFade
+    public class LevelScrollView : FadeScreen
     {
-
         [SerializeField] private Button levelButtonPrefab;
         [SerializeField] private Transform contentParent;
-        [SerializeField] private CanvasGroup canvasGroup;
         private AddressableLoader _addressableLoader;
+        private LevelButton[] _levelButtons;
+        private int _lastUnlockedLevel;
+        private UIManager _uiManager;
 
         private void Awake() 
         {
             _addressableLoader = new AddressableLoader();
         }
 
-        private void Start() 
+        private void OnEnable() 
         {
+            LevelManager.OnLevelLoaded += UpdateUnlockedLevelButton;
+        }
+
+        private void OnDisable() 
+        {
+            LevelManager.OnLevelLoaded -= UpdateUnlockedLevelButton;
+        }
+
+        protected override void AssignAnimationState()
+        {
+            animationState = screenAnimation["ScreenFade"]; // Get the animation state
+        }
+
+        public void Initialize(UIManager uiManager, int lastUnlockedLevel) 
+        {
+            _uiManager = uiManager;
+            _lastUnlockedLevel = lastUnlockedLevel;
             LoadLevels();
         }
 
-        private void LoadLevels() 
+        private void LoadLevels()
         {
             //Load level config addressable with address
             //It would take some time!
@@ -33,28 +52,32 @@ namespace IG.UI
             _addressableLoader.LoadScriptableObjectsByLabel<LevelConfig>(label, OnLevelsLoaded);
         }
 
-        public void FadeIn() 
-        {
-            canvasGroup.blocksRaycasts = false;
-        }
-
-        public void FadeOut() 
-        {
-            canvasGroup.blocksRaycasts = true;
-        }
-
         // Handle multiple objects loading
         private void OnLevelsLoaded(IList<LevelConfig> levelList)
         {
             if (levelList != null)
             {
+                _levelButtons = new LevelButton[levelList.Count];
                 for (int i = 0; i < levelList.Count; i++) 
                 {
+                    //Instantiate level button and assign data
                     LevelConfig level = levelList[i];
                     Debug.Log($"{level.name}");
                     var button = Instantiate(levelButtonPrefab, contentParent);
                     int number = i + 1;
                     button.onClick.AddListener(() => LevelButtonClicked(number));
+                    _levelButtons[i] = button.GetComponent<LevelButton>();
+                    _levelButtons[i].UpdateLevelText(number);
+                    
+                    // Assign lock / unlock
+                    if(number <= _lastUnlockedLevel) 
+                    {
+                        _levelButtons[i].UnlockLevel(true);
+                    }
+                    else 
+                    {
+                        _levelButtons[i].UnlockLevel(false);
+                    }
                 }
             }
             else
@@ -63,12 +86,26 @@ namespace IG.UI
             }
         }
 
+        private void UpdateUnlockedLevelButton(int level, int _)
+        {
+            _lastUnlockedLevel = level;
+            _levelButtons[level - 1].UnlockLevel(true);
+        }
+
         private void LevelButtonClicked(int level) 
         {
             Debug.Log($"Level button {level}");
             FadeOut();
 
-            // TODO load this level
+            StartCoroutine(LoadLevel(level));
+        }
+
+        private IEnumerator LoadLevel(int level) 
+        {
+            yield return new WaitForSeconds(1f);
+            // TODO fade in ring
+
+            _uiManager.LevelManager.LoadLevel(level);
         }
     }
 }

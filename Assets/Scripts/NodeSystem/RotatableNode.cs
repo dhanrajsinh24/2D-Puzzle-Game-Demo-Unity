@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace IG.NodeSystem 
@@ -7,6 +8,8 @@ namespace IG.NodeSystem
     /// </summary>
     public class RotatableNode : Node, IRotatable
     {
+        private bool _isRotating;
+        private Coroutine _rotateCoroutine;
         public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
@@ -15,13 +18,39 @@ namespace IG.NodeSystem
 
         public void Rotate()
         {
-            // TODO Rotate animation
-            // Rotate the Node by 90 degrees clockwise
-            transform.Rotate(0, 0, -90);
+            RotateBy90();
 
             ShiftConnectibleSides();
 
             CheckConnections();
+        }
+
+        private IEnumerator RotateOverTime(float targetAngle)
+        {
+            _isRotating = true;
+
+            float elapsedTime = 0f;
+            float duration = 0.2f; // Adjust the duration for smoothness
+            Quaternion startingRotation = transform.rotation;
+            Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
+
+            while (elapsedTime < duration)
+            {
+                transform.rotation = Quaternion.Lerp(startingRotation, targetRotation, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.rotation = targetRotation;
+            _isRotating = false;
+        }
+
+        // Rotate the Node by 90 degrees clockwise
+        private void RotateBy90()
+        {
+            float currentZRotation = transform.rotation.eulerAngles.z;
+            float newZRotation = currentZRotation - 90f; // Rotate counterclockwise by 90 degrees
+            _rotateCoroutine = StartCoroutine(RotateOverTime(newZRotation)); 
         }
     }
 }

@@ -10,6 +10,7 @@ namespace IG.Controller
         private const int MaxLevel = 3;
 
         [SerializeField] private DatabaseManager databaseManager;
+        [SerializeField] private UIManager uiManager;
 
         private LevelConfig _currentLevelConfig; 
         [SerializeField] private SpriteNodeGrid gridParentPrefab; // Grid parent to initialize on level load
@@ -19,8 +20,8 @@ namespace IG.Controller
         private ScoreManager _scoreManager;
         private AddressableLoader _addressableLoader;
 
-        public static Action OnLevelLoaded;
-        public static Action OnLevelCompleted;
+        public static Action<int, int> OnLevelLoaded; //Called When the level loaded with level number, top score
+        public static Action<int, int> OnLevelCompleted; //Called when a level is completed with level number, current score
 
         private void Awake()
         {
@@ -34,6 +35,12 @@ namespace IG.Controller
                 databaseManager = FindObjectOfType<DatabaseManager>();
             }
             _currentLevel = databaseManager.Initialize(this);
+
+            if (uiManager == null)
+            {
+                uiManager = FindObjectOfType<UIManager>();
+            }
+            uiManager.Initialize(this, databaseManager);
 
             _scoreManager = new ScoreManager();
             var nodeClickManager = gameObject.AddComponent<NodeClickManager>();
@@ -57,7 +64,7 @@ namespace IG.Controller
 
         public void LoadLevel(int level)
         {
-             _scoreManager.PlayerMoves = 0;
+            _scoreManager.PlayerMoves = 0;
              
             //If any level loaded previously then delete the grid
             if(_currentGridParent) 
@@ -66,14 +73,12 @@ namespace IG.Controller
             }
 
             // Making sure the level being loaded is within the valid range
-            if (level > 0 && level <= MaxLevel && level <= databaseManager.LastUnlockedLevel)
+            if (level > 0 && level <= MaxLevel 
+                && level <= databaseManager.LastUnlockedLevel)
             {
                 _currentLevel = level;
 
                 Debug.Log($"Loading Level {_currentLevel}");
-                
-                //Update last played level
-                databaseManager.LastPlayedLevel = _currentLevel;
 
                 //Load level config addressable with address
                 //It would take some time!
@@ -97,7 +102,9 @@ namespace IG.Controller
                 _currentGridParent = Instantiate(gridParentPrefab);
                 _currentGridParent.Initialize(_currentLevelConfig);
 
-                OnLevelLoaded?.Invoke();
+                //Event called to update UI and others
+                var topScore = databaseManager.GetLevelData(_currentLevel).topScore;
+                OnLevelLoaded?.Invoke(_currentLevel, topScore);
             }
             else
             {
@@ -112,13 +119,16 @@ namespace IG.Controller
             Debug.Log($"last unlocked {lastUnlockedLevel}");
 
             //Save level data, unlocking new level, and score to database
-            var score = _scoreManager.CalculateScore(_currentLevelConfig.minMoves, _currentLevelConfig.maxMoves);
+            var minMoves = _currentLevelConfig.minMoves;
+            var maxMoves = _currentLevelConfig.maxMoves;
+            var score = _scoreManager.CalculateScore(minMoves, maxMoves);
             Debug.Log($"Level {_currentLevel}, Score {score}");
             databaseManager.SaveLevelData(_currentLevel, score); 
 
             //If we have finished the level for the first time
             // Check for next level availability
-            if(_currentLevel.Equals(lastUnlockedLevel) && lastUnlockedLevel.Equals(MaxLevel)) 
+            if(_currentLevel.Equals(lastUnlockedLevel) 
+                && lastUnlockedLevel.Equals(MaxLevel)) 
             {
                 Debug.Log("Last level");
                 // TODO need to disable next level button or show UI for 
@@ -128,8 +138,10 @@ namespace IG.Controller
             {
                 // TODO need to load next level
                 int levelToLoad = _currentLevel + 1;
-                LoadLevel(levelToLoad);
+                //LoadLevel(levelToLoad);
             }
+
+            OnLevelCompleted?.Invoke(_currentLevel, score);
         }
     }
 }
