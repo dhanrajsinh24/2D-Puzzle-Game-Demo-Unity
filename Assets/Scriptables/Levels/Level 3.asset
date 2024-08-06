@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridType: 4
   nodeSize: 1
-  spacing: 0.01
+  spacing: 0
   minMoves: 0
   maxMoves: 0
   rows: 2
