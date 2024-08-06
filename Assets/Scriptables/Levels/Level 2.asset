@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   gridType: 4
-  nodeSize: 1
+  nodeSize: 0.8
   spacing: 0
   minMoves: 6
   maxMoves: 12
