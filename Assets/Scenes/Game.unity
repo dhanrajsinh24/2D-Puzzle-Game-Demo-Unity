@@ -12558,7 +12558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1727910883}
-  screenAnimation: {fileID: 0}
+  screenAnimation: {fileID: 1727910889}
   ringScalingAnimation: {fileID: 932928380}
   levelText: {fileID: 689184053}
   currentScoreText: {fileID: 570339384}

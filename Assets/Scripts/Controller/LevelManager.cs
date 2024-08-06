@@ -103,7 +103,8 @@ namespace IG.Controller
                 _currentGridParent.Initialize(_currentLevelConfig);
 
                 //Event called to update UI and others
-                var topScore = databaseManager.GetLevelData(_currentLevel).topScore;
+                var levelData = databaseManager.GetLevelData(_currentLevel);
+                var topScore = levelData != null ? levelData.topScore : 0;
                 OnLevelLoaded?.Invoke(_currentLevel, topScore);
             }
             else

@@ -123,6 +123,7 @@ namespace IG.Controller
 
         public LevelData GetLevelData(int level)
         {
+            if(storedData.levelDataList == null) return null;
             return storedData.levelDataList.Find(ld => ld.level == level);
         }
 
