@@ -29,14 +29,12 @@ namespace IG.Factory
             // and it creates another copy so we can now destroy the component
             var connectableSides = (bool[])initialConnectibleSides.connectibleSides.Clone();
             Object.Destroy(initialConnectibleSides);
+            
             var initialRotation = nodeData.initialRotation;
             
             // Initialize the node with its data and apply the required rotation
             node.Initialize(row, column, connectableSides, gridManager, gridType);
             node.ApplyInitialRotation(initialRotation);
-
-            //TODO until we have proper level validation we check for level completion at start
-            node.CheckConnections();
 
             return node;
         }

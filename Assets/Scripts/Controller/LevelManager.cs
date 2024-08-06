@@ -11,15 +11,13 @@ namespace IG.Controller
 
         [SerializeField] private DatabaseManager databaseManager;
         [SerializeField] private UIManager uiManager;
-
-        private LevelConfig _currentLevelConfig; 
         [SerializeField] private SpriteNodeGrid gridParentPrefab; // Grid parent to initialize on level load
         
         private int _currentLevel;
         private SpriteNodeGrid _currentGridParent;
         private ScoreManager _scoreManager;
         private AddressableLoader _addressableLoader;
-
+        private LevelConfig _currentLevelConfig; 
         public static Action<int, int> OnLevelLoaded; //Called When the level loaded with level number, top score
         public static Action<int, int> OnLevelCompleted; //Called when a level is completed with level number, current score
 
@@ -149,8 +147,6 @@ namespace IG.Controller
                 && lastUnlockedLevel.Equals(MaxLevel)) 
             {
                 Debug.Log("Last level");
-                // TODO need to disable next level button or show UI for 
-                // All levels are completed
             }
 
             OnLevelCompleted?.Invoke(_currentLevel, score);
