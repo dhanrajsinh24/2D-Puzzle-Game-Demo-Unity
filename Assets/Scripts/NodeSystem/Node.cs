@@ -19,6 +19,7 @@ namespace IG.NodeSystem
         private IGrid _gridManager;
         protected GridType gridType;
         [SerializeField] private ColorFeedback _colorFeedback;
+        [SerializeField] protected Transform rotateTransform;
         public WiFiNode ConnectedWiFiNode {get; private set;} // Reference to the connected WiFiNode
 
         public virtual void Initialize(int row, int column, bool[] initialConnectableSides, 
@@ -46,7 +47,7 @@ namespace IG.NodeSystem
                 angle = initialRotation * -60f; // 6 possible rotations
             }
 
-            transform.Rotate(Vector3.forward, angle); // Rotate around the Z-axis
+            rotateTransform.Rotate(Vector3.forward, angle); // Rotate around the Z-axis
 
             //Update connectible sides by shifting it by rotation multiplier times
             for(int i = 0; i < initialRotation; i++) 

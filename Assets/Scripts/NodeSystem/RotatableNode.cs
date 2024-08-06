@@ -11,7 +11,6 @@ namespace IG.NodeSystem
         private bool _isRotating;
         private Coroutine _rotateCoroutine;
         private Quaternion _lastTargetRotation;
-        [SerializeField] private Transform rotateTransform;
         public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
