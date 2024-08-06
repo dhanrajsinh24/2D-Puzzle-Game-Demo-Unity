@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace IG.UI 
 {
-    public class LevelScrollView : MonoBehaviour, IFadeScreen
+    public class LevelScrollView : MonoBehaviour, IFade
     {
 
         [SerializeField] private Button levelButtonPrefab;

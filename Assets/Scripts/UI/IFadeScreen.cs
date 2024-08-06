@@ -1,4 +1,4 @@
-public interface IFadeScreen
+public interface IFade
 {
     void FadeIn();
 
