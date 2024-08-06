@@ -11,6 +11,7 @@ namespace IG.NodeSystem
         private bool _isRotating;
         private Coroutine _rotateCoroutine;
         private Quaternion _lastTargetRotation;
+        [SerializeField] private Transform rotateTransform;
         public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
@@ -32,17 +33,17 @@ namespace IG.NodeSystem
 
             float elapsedTime = 0f;
             float duration = 0.1f; // Adjust the duration for smoothness
-            Quaternion startingRotation = transform.rotation;
+            Quaternion startingRotation = rotateTransform.rotation;
             _lastTargetRotation = Quaternion.Euler(0, 0, targetAngle);
 
             while (elapsedTime < duration)
             {
-                transform.rotation = Quaternion.Lerp(startingRotation, _lastTargetRotation, elapsedTime / duration);
+                rotateTransform.rotation = Quaternion.Lerp(startingRotation, _lastTargetRotation, elapsedTime / duration);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            transform.rotation = _lastTargetRotation;
+            rotateTransform.rotation = _lastTargetRotation;
             _isRotating = false;
         }
 
@@ -51,9 +52,9 @@ namespace IG.NodeSystem
         {
             if(_lastTargetRotation != null) 
             {
-                transform.rotation = _lastTargetRotation;
+                rotateTransform.rotation = _lastTargetRotation;
             }
-            float currentZRotation = transform.rotation.eulerAngles.z;
+            float currentZRotation = rotateTransform.rotation.eulerAngles.z;
             float newZRotation = currentZRotation - 90f; // Rotate counterclockwise by 90 degrees
             _rotateCoroutine = StartCoroutine(RotateOverTime(newZRotation)); 
         }

@@ -22,25 +22,19 @@ MonoBehaviour:
   grid:
   - nodePrefab: {fileID: 6550401670723040388, guid: 4bbf1c47978e6ca4da87dd00a183b9dc, type: 3}
     nodeType: 1
-    connectableSides: 01010000
     initialRotation: 0
   - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
     nodeType: 2
-    connectableSides: 00000101
-    initialRotation: 0
-  - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
-    nodeType: 2
-    connectableSides: 00000101
+    initialRotation: 2
+  - nodePrefab: {fileID: 3954645694065944576, guid: d4736d6dd5b91c04abd650c250ae6fe5, type: 3}
+    nodeType: 3
     initialRotation: 0
   - nodePrefab: {fileID: 3954645694065944576, guid: d4736d6dd5b91c04abd650c250ae6fe5, type: 3}
     nodeType: 3
-    connectableSides: 00000000
     initialRotation: 0
   - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
     nodeType: 2
-    connectableSides: 00000101
-    initialRotation: 0
+    initialRotation: 2
   - nodePrefab: {fileID: 6550401670723040388, guid: 68d3cccfeaeea554190256f9323e1bb2, type: 3}
     nodeType: 0
-    connectableSides: 00000001
-    initialRotation: 0
+    initialRotation: 3

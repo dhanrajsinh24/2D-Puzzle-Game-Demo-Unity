@@ -487,6 +487,22 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6195639901431407232, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
+      propertyPath: connectibleSides.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195639901431407232, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
+      propertyPath: connectibleSides.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195639901431407232, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
+      propertyPath: connectibleSides.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195639901431407232, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
+      propertyPath: connectibleSides.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7648104698323563826, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
       propertyPath: images.Array.size
       value: 3
@@ -547,6 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorFeedback: {fileID: 442914485872896438}
+  rotateTransform: {fileID: 7833951894523374945}
 --- !u!4 &7346440662111528361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 717697455921232173, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}

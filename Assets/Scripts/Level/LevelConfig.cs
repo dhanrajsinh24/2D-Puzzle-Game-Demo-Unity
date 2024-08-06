@@ -24,10 +24,6 @@ namespace IG.Level
         {
             public GameObject nodePrefab; // Prefab for the node
             public NodeType nodeType;
-
-            // Length should be validated to either 4(square) or 6(Hexagonal)
-            public bool[] connectableSides; // Side bool array to specify which side is connectable (True is so)
-
             [Range(0, 5)] // Range is 0-5 to support 4 rotations for Square and 6 for Hexagonal
             public int initialRotation; // Number of rotations (0 for no rotation)
         }
@@ -76,11 +72,6 @@ namespace IG.Level
             if (gridSize <= 0)
             {
                 Debug.LogError($"{name} Grid size must be greater than 0.");
-            }
-
-            if (gridSize % 2 != 0)
-            {
-                Debug.LogError($"{name} Grid size must be divisible by 2.");
             }
 
             if (rows == 0 || columns == 0 || !gridSize.Equals(rows * columns))

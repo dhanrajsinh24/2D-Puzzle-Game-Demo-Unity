@@ -24,8 +24,9 @@ namespace IG.Factory
             var nodeObj = Object.Instantiate(nodeData.nodePrefab, parent);
             var node = nodeObj.GetComponent<Node>();
 
-            // We have to take the clone of array so it does not change the base nodeData of Level
-            var connectableSides = (bool[])nodeData.connectableSides.Clone();
+            var initialConnectibleSides = node.GetComponent<InitialConnectibleSides>();
+            // We have to take the clone of array so it does not change the original
+            var connectableSides = (bool[])initialConnectibleSides.connectibleSides.Clone();
             
             // Initialize the node with its data and apply the required rotation
             node.Initialize(row, column, connectableSides, gridManager, gridType);

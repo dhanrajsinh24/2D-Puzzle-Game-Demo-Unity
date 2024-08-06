@@ -6,6 +6,7 @@ namespace IG.NodeSystem
     public class WiFiNode : Node
     {
         private List<Node> _connectedNodes = new();
+        [SerializeField] private Animation errorFeedback;
 
         private void Awake() 
         {
@@ -15,6 +16,10 @@ namespace IG.NodeSystem
         public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
+            if(errorFeedback != null) 
+            {
+                errorFeedback.Play();
+            }
         }
 
         // Method to add a connected node
