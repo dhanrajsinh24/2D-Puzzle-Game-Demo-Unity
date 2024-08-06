@@ -10,7 +10,8 @@ namespace IG.NodeSystem
     {
         private bool _isRotating;
         private Coroutine _rotateCoroutine;
-        private Quaternion _lastTargetRotation;
+        private float _lastTargetZRotation;
+
         public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
@@ -26,34 +27,37 @@ namespace IG.NodeSystem
             CheckConnections();
         }
 
-        private IEnumerator RotateOverTime(float targetAngle)
+        private IEnumerator RotateOverTime(float targetZRotation)
         {
             _isRotating = true;
 
             float elapsedTime = 0f;
             float duration = 0.1f; // Adjust the duration for smoothness
-            Quaternion startingRotation = rotateTransform.rotation;
-            _lastTargetRotation = Quaternion.Euler(0, 0, targetAngle);
+            Vector3 startingEulerAngles = rotateTransform.eulerAngles;
+            _lastTargetZRotation = targetZRotation;
+            Debug.Log($"{gameObject.name}, targetZRotation {targetZRotation}");
 
             while (elapsedTime < duration)
             {
-                rotateTransform.rotation = Quaternion.Lerp(startingRotation, _lastTargetRotation, elapsedTime / duration);
+                float newZRotation = Mathf.Lerp(startingEulerAngles.z, _lastTargetZRotation, elapsedTime / duration);
+                rotateTransform.eulerAngles = new Vector3(startingEulerAngles.x, startingEulerAngles.y, newZRotation);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            rotateTransform.rotation = _lastTargetRotation;
+            rotateTransform.eulerAngles = new Vector3(startingEulerAngles.x, startingEulerAngles.y, _lastTargetZRotation);
             _isRotating = false;
         }
 
         // Rotate the Node by 90 degrees clockwise
         private void RotateBy90()
         {
-            if(_lastTargetRotation != null) 
+            if (_rotateCoroutine != null) 
             {
-                rotateTransform.rotation = _lastTargetRotation;
+                StopCoroutine(_rotateCoroutine);
             }
-            float currentZRotation = rotateTransform.rotation.eulerAngles.z;
+
+            float currentZRotation = rotateTransform.eulerAngles.z;
             float newZRotation = currentZRotation - 90f; // Rotate counterclockwise by 90 degrees
             _rotateCoroutine = StartCoroutine(RotateOverTime(newZRotation)); 
         }

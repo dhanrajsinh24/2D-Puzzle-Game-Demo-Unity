@@ -85,7 +85,6 @@ namespace IG.Controller
 
         private void NodeClicked(GameObject clickedNode)
         {
-            Debug.Log($"{clickedNode.name} clicked");
             clickedNode.GetComponent<Node>().NodeClicked();
             _scoreManager.PlayerMoves++;
         }

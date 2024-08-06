@@ -24,13 +24,16 @@ namespace IG.Factory
             var nodeObj = Object.Instantiate(nodeData.nodePrefab, parent);
             var node = nodeObj.GetComponent<Node>();
 
-            var initialConnectibleSides = node.GetComponent<InitialConnectibleSides>();
+            var initialConnectibleSides = nodeObj.GetComponent<InitialConnectibleSides>();
             // We have to take the clone of array so it does not change the original
+            // and it creates another copy so we can now destroy the component
             var connectableSides = (bool[])initialConnectibleSides.connectibleSides.Clone();
+            Object.Destroy(initialConnectibleSides);
+            var initialRotation = nodeData.initialRotation;
             
             // Initialize the node with its data and apply the required rotation
             node.Initialize(row, column, connectableSides, gridManager, gridType);
-            node.ApplyInitialRotation(nodeData.initialRotation);
+            node.ApplyInitialRotation(initialRotation);
 
             //TODO until we have proper level validation we check for level completion at start
             node.CheckConnections();

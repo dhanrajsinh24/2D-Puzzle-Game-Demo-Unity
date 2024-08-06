@@ -63,7 +63,7 @@ namespace IG.UI
                 {
                     //Instantiate level button and assign data
                     LevelConfig level = levelList[i];
-                    Debug.Log($"{level.name}");
+                    //Debug.Log($"{level.name}");
                     var button = Instantiate(levelButtonPrefab, contentParent);
                     int number = i + 1;
                     button.onClick.AddListener(() => LevelButtonClicked(number));

@@ -15,44 +15,35 @@ MonoBehaviour:
   gridType: 4
   nodeSize: 1
   spacing: 0
-  minMoves: 0
-  maxMoves: 0
+  minMoves: 6
+  maxMoves: 12
   rows: 3
-  columns: 4
+  columns: 3
   grid:
-  - nodePrefab: {fileID: 6550401670723040388, guid: a88c656d482db0b4d86daf439e82cca9, type: 3}
+  - nodePrefab: {fileID: 6550401670723040388, guid: 4bbf1c47978e6ca4da87dd00a183b9dc, type: 3}
     nodeType: 1
-    initialRotation: 1
-  - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
-    nodeType: 2
-    initialRotation: 2
+    initialRotation: 0
   - nodePrefab: {fileID: 6550401670723040388, guid: c2de8782237b1354790fe62affa3fca9, type: 3}
     nodeType: 2
-    initialRotation: 1
-  - nodePrefab: {fileID: 6550401670723040388, guid: a88c656d482db0b4d86daf439e82cca9, type: 3}
-    nodeType: 1
-    initialRotation: 2
-  - nodePrefab: {fileID: 6550401670723040388, guid: c2de8782237b1354790fe62affa3fca9, type: 3}
-    nodeType: 2
-    initialRotation: 0
-  - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
-    nodeType: 2
-    initialRotation: 0
-  - nodePrefab: {fileID: 6550401670723040388, guid: a88c656d482db0b4d86daf439e82cca9, type: 3}
-    nodeType: 1
     initialRotation: 3
+  - nodePrefab: {fileID: 6550401670723040388, guid: 4bbf1c47978e6ca4da87dd00a183b9dc, type: 3}
+    nodeType: 1
+    initialRotation: 0
+  - nodePrefab: {fileID: 6550401670723040388, guid: c2de8782237b1354790fe62affa3fca9, type: 3}
+    nodeType: 2
+    initialRotation: 0
+  - nodePrefab: {fileID: 3954645694065944576, guid: d4736d6dd5b91c04abd650c250ae6fe5, type: 3}
+    nodeType: 3
+    initialRotation: 0
+  - nodePrefab: {fileID: 6550401670723040388, guid: c2de8782237b1354790fe62affa3fca9, type: 3}
+    nodeType: 2
+    initialRotation: 1
   - nodePrefab: {fileID: 6550401670723040388, guid: 68d3cccfeaeea554190256f9323e1bb2, type: 3}
     nodeType: 0
-    initialRotation: 2
-  - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
+    initialRotation: 0
+  - nodePrefab: {fileID: 3954645694065944576, guid: d4736d6dd5b91c04abd650c250ae6fe5, type: 3}
+    nodeType: 3
+    initialRotation: 0
+  - nodePrefab: {fileID: 6550401670723040388, guid: a88c656d482db0b4d86daf439e82cca9, type: 3}
     nodeType: 2
-    initialRotation: 2
-  - nodePrefab: {fileID: 6550401670723040388, guid: c2de8782237b1354790fe62affa3fca9, type: 3}
-    nodeType: 2
-    initialRotation: 1
-  - nodePrefab: {fileID: 6550401670723040388, guid: c2de8782237b1354790fe62affa3fca9, type: 3}
-    nodeType: 2
-    initialRotation: 1
-  - nodePrefab: {fileID: 6550401670723040388, guid: 8db496968c01be24bb4a2b872ce1f91a, type: 3}
-    nodeType: 2
-    initialRotation: 1
+    initialRotation: 3

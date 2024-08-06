@@ -7,7 +7,7 @@ namespace IG.Controller
 {
     public class LevelManager : MonoBehaviour
     {
-        private const int MaxLevel = 3;
+        private const int MaxLevel = 4;
 
         [SerializeField] private DatabaseManager databaseManager;
         [SerializeField] private UIManager uiManager;

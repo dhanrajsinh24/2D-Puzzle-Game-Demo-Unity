@@ -47,7 +47,13 @@ namespace IG.NodeSystem
                 angle = initialRotation * -60f; // 6 possible rotations
             }
 
-            rotateTransform.Rotate(Vector3.forward, angle); // Rotate around the Z-axis
+            // Get the current Euler angles
+            var currentEulerAngles = rotateTransform.eulerAngles;
+
+            // Modify the Z-axis rotation
+            currentEulerAngles.z += angle;
+            // Apply the updated Euler angles
+            rotateTransform.eulerAngles = currentEulerAngles;
 
             //Update connectible sides by shifting it by rotation multiplier times
             for(int i = 0; i < initialRotation; i++) 
