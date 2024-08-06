@@ -383,7 +383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 717697455921232173, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 3954645694065944576, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
       propertyPath: m_Name
@@ -446,6 +446,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3954645694065944576, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7264071783624130371}
+    - targetCorrespondingSourceObject: {fileID: 3954645694065944576, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8414800828998169404}
   m_SourcePrefab: {fileID: 100100000, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}
 --- !u!114 &442914485872896438 stripped
 MonoBehaviour:
@@ -477,7 +480,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colorFeedback: {fileID: 442914485872896438}
   rotateTransform: {fileID: 8057512162812856590}
-  errorFeedback: {fileID: 0}
+  errorFeedback: {fileID: 8414800828998169404}
+--- !u!111 &8414800828998169404
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6550401670723040388}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 7a917bdc51929c748891a765e145309e, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 7a917bdc51929c748891a765e145309e, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!4 &7346440662111528361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 717697455921232173, guid: 6b67fafb1cc5f7d47b1638ad839691e6, type: 3}

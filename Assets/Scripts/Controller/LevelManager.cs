@@ -7,7 +7,7 @@ namespace IG.Controller
 {
     public class LevelManager : MonoBehaviour
     {
-        private const int MaxLevel = 4;
+        public const int MaxLevel = 4;
 
         [SerializeField] private DatabaseManager databaseManager;
         [SerializeField] private UIManager uiManager;
@@ -151,12 +151,6 @@ namespace IG.Controller
                 Debug.Log("Last level");
                 // TODO need to disable next level button or show UI for 
                 // All levels are completed
-            }
-            else 
-            {
-                // TODO need to load next level
-                int levelToLoad = _currentLevel + 1;
-                //LoadLevel(levelToLoad);
             }
 
             OnLevelCompleted?.Invoke(_currentLevel, score);

@@ -15,8 +15,8 @@ MonoBehaviour:
   gridType: 4
   nodeSize: 1
   spacing: 0
-  minMoves: 0
-  maxMoves: 0
+  minMoves: 11
+  maxMoves: 22
   rows: 4
   columns: 6
   grid:

@@ -35,9 +35,17 @@ namespace IG.UI
 
         private void UpdateUI(int level, int score) 
         {
-            levelText.text = $"Level {level} Cleared!";
             currentScoreText.text = $"Score: {score}";
-            confirmButton.interactable = true;
+            if(level.Equals(LevelManager.MaxLevel)) 
+            {
+                levelText.text = $"Last Level Cleared!";
+                confirmButton.gameObject.SetActive(false);
+            }
+            else 
+            {
+                levelText.text = $"Level {level} Cleared!";
+                confirmButton.interactable = true;
+            }
 
             StartCoroutine(ShowResultScreen());
         }

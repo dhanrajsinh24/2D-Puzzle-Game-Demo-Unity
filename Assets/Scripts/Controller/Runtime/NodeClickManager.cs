@@ -10,7 +10,7 @@ namespace IG.Controller
         private bool _isClickable;
         private ScoreManager _scoreManager;
         private float _lastTouchTime; // Tracks the last time a touch input was registered
-        private const float _touchCooldown = 0.1f; // The cooldown time in seconds
+        private const float _touchCooldown = 0.15f; // The cooldown time in seconds
 
         public void Initialize(ScoreManager scoreManager) 
         {
