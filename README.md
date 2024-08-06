@@ -21,9 +21,10 @@
 - **Unity Version:** 2022.3.27f1
 - **Programming Language:** C#
 - **Main Scene:** The primary game scene is named `Game`.
-- **Camera Shake:** Implemented to add visual feedback when a level is cleared.
-- **Background Music:** Continuous music plays throughout the game to keep players engaged.
-- **Connected Nodes Visualization:** Nodes connected to WiFi change color, providing clear visual feedback.
+- **Addressable Assets:**: Used for efficient level loading.
+- **JSON Storage:**: For storing level and score data.
+- **Scene Management:**: The main gameplay takes place in the Game scene.
+
 
 ## Installation
 
