@@ -7,8 +7,8 @@ namespace IG.Utils
 	public class CameraShake : MonoBehaviour
 {
 	[SerializeField]private Transform cameraTransform; // Transform of the camera to shake
-	private const float ShakeDuration = 0.2f; // How long the object should shake for
-	private const float ShakeAmount = 0.1f; // Magnitude of the shake. A larger value shakes the camera harder
+	private const float ShakeDuration = 0.1f; // How long the object should shake for
+	private const float ShakeAmount = 0.08f; // Magnitude of the shake. A larger value shakes the camera harder
 
 	private void Awake()
 	{

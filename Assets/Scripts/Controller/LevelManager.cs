@@ -31,6 +31,8 @@ namespace IG.Controller
 
         private void Initialize() 
         {
+            Application.targetFrameRate = 60;
+
             if (databaseManager == null)
             {
                 databaseManager = FindObjectOfType<DatabaseManager>();

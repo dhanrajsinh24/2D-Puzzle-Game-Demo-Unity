@@ -15,7 +15,6 @@ namespace IG.NodeSystem
         public override void NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
-            // TODO: visual and vibrate feedback
         }
 
         // Method to add a connected node
