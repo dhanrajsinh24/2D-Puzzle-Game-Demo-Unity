@@ -14,6 +14,7 @@ public abstract class FadeScreen : MonoBehaviour, IFade
     {
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
 
         AssignAnimationState();
     }

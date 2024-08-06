@@ -25,6 +25,7 @@ namespace IG.Controller
 
         private void Awake()
         {
+            //Auto initialization of this main manager script of the game
             Initialize();
         }
 
@@ -47,9 +48,6 @@ namespace IG.Controller
             nodeClickManager.Initialize(_scoreManager);
 
             _addressableLoader = new AddressableLoader();
-
-            // We will play the level at start which is the last played (Not the last unlocked)
-            LoadLevel(_currentLevel);
         }
 
         private void OnEnable() 
@@ -62,15 +60,26 @@ namespace IG.Controller
             CircuitValidation.OnValidated += CompleteLevel;
         }
 
-        public void LoadLevel(int level)
+        private void Start() 
         {
-            _scoreManager.PlayerMoves = 0;
-             
+            // We will play the level at start which is the last played (Not the last unlocked)
+            LoadLevel(_currentLevel);
+        }
+
+        public void DestroyCurrentLevel() 
+        {
+             _scoreManager.PlayerMoves = 0;
+
             //If any level loaded previously then delete the grid
             if(_currentGridParent) 
             {
                 Destroy(_currentGridParent.gameObject);
             }
+        }
+
+        public void LoadLevel(int level)
+        {
+            DestroyCurrentLevel();
 
             // Making sure the level being loaded is within the valid range
             if (level > 0 && level <= MaxLevel 
@@ -89,6 +98,12 @@ namespace IG.Controller
             {
                 Debug.LogError($"Level {level} is not valid.");
             }
+        }
+
+        public void LoadNextLevel() 
+        {
+            _currentLevel++;
+            LoadLevel(_currentLevel);
         }
 
         // Callback method to handle the loaded object

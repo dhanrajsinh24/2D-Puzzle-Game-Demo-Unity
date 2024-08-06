@@ -16,6 +16,7 @@ namespace IG.UI
         private LevelButton[] _levelButtons;
         private int _lastUnlockedLevel;
         private UIManager _uiManager;
+        private bool _isOn;
 
         private void Awake() 
         {
@@ -34,7 +35,7 @@ namespace IG.UI
 
         protected override void AssignAnimationState()
         {
-            animationState = screenAnimation["ScreenFade"]; // Get the animation state
+            animationState = screenAnimation["LevelScroll"]; // Get the animation state
         }
 
         public void Initialize(UIManager uiManager, int lastUnlockedLevel) 
@@ -88,6 +89,9 @@ namespace IG.UI
 
         private void UpdateUnlockedLevelButton(int level, int _)
         {
+            //If the level scroll is not ready, we dont need to update it
+            if(_levelButtons == null) return;
+
             _lastUnlockedLevel = level;
             _levelButtons[level - 1].UnlockLevel(true);
         }
@@ -102,10 +106,19 @@ namespace IG.UI
 
         private IEnumerator LoadLevel(int level) 
         {
-            yield return new WaitForSeconds(1f);
-            // TODO fade in ring
+            _uiManager.LevelManager.DestroyCurrentLevel();
+            
+            yield return new WaitForSeconds(0.5f);
 
             _uiManager.LevelManager.LoadLevel(level);
+        }
+
+        public void ToggleFade() 
+        {
+            _isOn = !_isOn;
+
+            if(_isOn) FadeIn();
+            else FadeOut();
         }
     }
 }

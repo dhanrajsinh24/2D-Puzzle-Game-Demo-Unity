@@ -2,6 +2,7 @@ using System.Collections;
 using IG.Controller;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace IG.UI 
 {
@@ -9,6 +10,8 @@ namespace IG.UI
     {
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI currentScoreText;
+        [SerializeField] private Button confirmButton;
+        private UIManager _uiManager;
 
         private void OnEnable() 
         {
@@ -19,16 +22,22 @@ namespace IG.UI
         {
             LevelManager.OnLevelCompleted -= UpdateUI;
         }
+        
+        public void Initialize(UIManager uiManager) 
+        {
+            _uiManager = uiManager;
+        }
 
         protected override void AssignAnimationState()
         {
-            animationState = screenAnimation["LevelScroll"]; // Get the animation state
+            animationState = screenAnimation["ScreenFade"]; // Get the animation state
         }
 
         private void UpdateUI(int level, int score) 
         {
             levelText.text = $"Level {level} Cleared!";
             currentScoreText.text = $"Score: {score}";
+            confirmButton.interactable = true;
 
             StartCoroutine(ShowResultScreen());
         }
@@ -49,7 +58,16 @@ namespace IG.UI
 
         public void OnConfirmClicked() 
         {
+            confirmButton.interactable = false;
             FadeOut();
+
+            StartCoroutine(NextLevel());
+        }
+
+        private IEnumerator NextLevel() 
+        {
+            yield return new WaitForSeconds(0.5f);
+            _uiManager.LevelManager.LoadNextLevel();
         }
     }
 }
