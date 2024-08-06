@@ -20,12 +20,32 @@ MonoBehaviour:
   - m_GUID: e82ccc22e0dbc4e4a91aea304d3cc601
     m_Address: Level 1
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Level
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 13fa920de1da0034b8c9a80171ea0ce3
     m_Address: Level 2
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Level
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0b89d212756855478444e2f6577c03a
+    m_Address: Level 3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Level
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8bf1993a51adddc43839e2ba38e89fbe
+    m_Address: Level 4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Level
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7a34adf3dee4f740adf113437ef6ec6
+    m_Address: Level 5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Level
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f0e69b5d94564c94bb10a151c55f9299, type: 2}

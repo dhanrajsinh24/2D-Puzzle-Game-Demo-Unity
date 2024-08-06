@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -24,6 +25,26 @@ namespace IG.Utils
                 }
             };
         }
+
+        // Method to load multiple ScriptableObjects with label with a callback
+        public void LoadScriptableObjectsByLabel<T>(string label, Action<IList<T>> onLoaded) where T : ScriptableObject
+        {
+            // Load all ScriptableObjects with a specific label
+            Addressables.LoadAssetsAsync<T>(label, null).Completed += handle =>
+            {
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    IList<T> loadedObjects = handle.Result;
+                    onLoaded?.Invoke(loadedObjects);
+                }
+                else
+                {
+                    Debug.LogError("Failed to load ScriptableObjects: " + handle.Status);
+                    onLoaded?.Invoke(null);
+                }
+            };
+        }
     }
 }
+
 
