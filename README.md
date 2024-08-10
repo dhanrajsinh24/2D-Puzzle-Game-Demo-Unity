@@ -25,6 +25,27 @@
 - **JSON Storage:**: For storing level and score data.
 - **Scene Management:**: The main gameplay takes place in the Game scene.
 
+## Main Scripts Overview
+The project includes several custom scripts, each serving a specific purpose in the game:
+
+- **Node.cs**: Represents a node in the grid, including its connection status and rotation logic.
+- **WiFiNode.cs**: Extends Node to specifically manage the behavior and connections of the WiFi node.
+- **ComputerNode.cs**: Extends Node to manage the behavior and connection requirements of computer nodes.
+- **CableNode.cs**: Extends Node to handle the behavior of cable nodes that connect computers to the WiFi node.
+- **RotatableNode.cs**: Handles the rotation logic of nodes and checks for connections upon rotation.
+- **CircuitValidation.cs**: Validates the circuit to ensure all computers are connected to WiFi and triggers level completion.
+- **LevelManager.cs**: Manages level loading, progression, and score calculation.
+- **SpriteGridManager.cs**: Initializes and manages the grid layout using Unity’s Grid component.
+- **UIManager.cs**: Managers communication between all UI scripts and manager scripts.
+- **CameraShake.cs**: Implements the camera shake effect triggered on level completion.
+- **DatabaseManager.cs**: Handles Json database management for level progress and score.
+- **NodeClickManager.cs**: Responsible for node clicking start, stop and notify node of clicking.
+- **ScoreManager.cs**: Manages the scoring based on the number of moves taken to complete a level.
+- **NodeFactory.cs**: Handles creating Various nodes. Attached to Grid object.
+- **LevelConfig.cs**: Defines the structure and settings for each level.
+- **LevelScrollView.cs**: Level scroll which handles all level lock / unlock visuals.
+- **LevelButton.cs**: Defines the level button which is used in Level scroll view for level selection.
+
 
 ## Installation
 

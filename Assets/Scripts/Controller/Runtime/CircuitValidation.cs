@@ -4,8 +4,8 @@ using UnityEngine;
 namespace IG.Controller 
 {
     /// <summary>
-    /// Handles level complete validation
-    /// Attached to Grid which is initialized for every level
+    /// Validates the connection of all nodes.
+    /// Attached to Grid which is initialized for every level.
     /// </summary>
     public class CircuitValidation : MonoBehaviour
     {

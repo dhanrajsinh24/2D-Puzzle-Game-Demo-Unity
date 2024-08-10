@@ -3,7 +3,7 @@ using static IG.Level.LevelConfig;
 
 namespace IG.NodeSystem
 {
-    // Interface to let nodes connect each other
+    // Defines nodes which can connect to each other
     public interface IConnectable
     {
         void Initialize(int row, int column, bool[] initialConnectableSides, 

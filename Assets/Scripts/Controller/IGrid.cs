@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IG.Controller 
 {
+    /// <summary>
+    /// Defines Grid manager which will initialize all required nodes
+    /// </summary>
     public interface IGrid
     {
         public Transform GridTransform {get; set;}

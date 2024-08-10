@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IG.Utils 
 {
+	/// <summary>
+	/// Implements the camera shake effect triggered on level completion.
+	/// </summary>
 	public class CameraShake : MonoBehaviour
 	{
 		[SerializeField]private Transform cameraTransform; // Transform of the camera to shake

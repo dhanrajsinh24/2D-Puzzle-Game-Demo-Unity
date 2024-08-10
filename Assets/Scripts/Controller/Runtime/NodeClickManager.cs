@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace IG.Controller
 {
+    /// <summary>
+    /// Responsible for node clicking start, stop and notify node of clicking
+    /// </summary>
     public class NodeClickManager : MonoBehaviour
     {
         private int _layerMask;

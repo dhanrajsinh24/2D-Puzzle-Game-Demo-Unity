@@ -2,6 +2,9 @@ using IG.Effect;
 using IG.UI;
 using UnityEngine;
 
+/// <summary>
+/// Defines objects that can be animated by Fading in / out 
+/// </summary>
 public abstract class FadeScreen : MonoBehaviour, IFade
 {
     [SerializeField] private CanvasGroup canvasGroup;

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace IG.UI 
 {
+    /// <summary>
+    /// Handles Result screen UI
+    /// </summary>
     public class ResultUI : FadeScreen
     {
         [SerializeField] private TextMeshProUGUI levelText;

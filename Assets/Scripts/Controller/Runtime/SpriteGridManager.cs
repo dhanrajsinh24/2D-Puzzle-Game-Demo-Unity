@@ -5,9 +5,10 @@ using UnityEngine;
 namespace IG.Controller 
 {
     /// <summary>
-    /// This handles making the grid and assign appropriate nodes
+    /// Initializes and manages the grid layout using Unity’s Grid component.
+    /// Adds required nodes and saves for later use
     /// </summary>
-    public class SpriteNodeGrid : MonoBehaviour, IGrid
+    public class SpriteGridManager : MonoBehaviour, IGrid
     {
         [SerializeField] private Grid gridGroup; // Grid parent
         [SerializeField] private NodeFactory nodeFactory;

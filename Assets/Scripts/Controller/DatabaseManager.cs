@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace IG.Controller
 {
+    /// <summary>
+    /// Handles Json database management for level progress and score.
+    /// </summary>
     public class DatabaseManager : MonoBehaviour
     {
         private const string JsonFileName = "Level Data";

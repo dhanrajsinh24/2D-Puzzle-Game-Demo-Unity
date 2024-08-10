@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace IG.Level
 {
+    /// <summary>
+    /// Defines the structure and settings for each level.
+    /// </summary>
     [CreateAssetMenu(fileName = "Level", menuName = "IG/Level")]
     public class LevelConfig : ScriptableObject
     {

@@ -1,8 +1,10 @@
 using IG.Controller;
-using IG.Level;
 
 namespace IG.NodeSystem 
 {
+    /// <summary>
+    /// Defines computer node which are used for level validation
+    /// </summary>
     public class ComputerNode : RotatableNode, IResultNode
     {
         private CircuitValidation _circuitValidation;
@@ -15,10 +17,10 @@ namespace IG.NodeSystem
         {
             base.UpdateVisualFeedback();
 
-            UpdateComputerCount();
+            UpdateCount();
         }
 
-        public void UpdateComputerCount() 
+        public void UpdateCount() 
         {
             if(_circuitValidation) 
             {

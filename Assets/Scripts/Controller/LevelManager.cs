@@ -5,16 +5,20 @@ using UnityEngine;
 
 namespace IG.Controller 
 {
+    /// <summary>
+    /// Manages level loading, progression, and score calculation.
+    /// Initializes all required classes
+    /// </summary>
     public class LevelManager : MonoBehaviour
     {
         public const int MaxLevel = 4;
 
         [SerializeField] private DatabaseManager databaseManager;
         [SerializeField] private UIManager uiManager;
-        [SerializeField] private SpriteNodeGrid gridParentPrefab; // Grid parent to initialize on level load
+        [SerializeField] private SpriteGridManager gridParentPrefab; // Grid parent to initialize on level load
         
         private int _currentLevel;
-        private SpriteNodeGrid _currentGridParent;
+        private SpriteGridManager _currentGridParent;
         private ScoreManager _scoreManager;
         private AddressableLoader _addressableLoader;
         private LevelConfig _currentLevelConfig; 

@@ -6,8 +6,8 @@ using static IG.Level.LevelConfig;
 namespace IG.Factory
 {
     /// <summary>
-    /// Handles creating Various nodes
-    /// Attached to Grid object
+    /// Handles creating Various nodes.
+    /// Attached to Grid object.
     /// </summary>
     public class NodeFactory : MonoBehaviour
     {

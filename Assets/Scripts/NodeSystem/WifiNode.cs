@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace IG.NodeSystem 
 {
+    /// <summary>
+    /// Manages connections for all nodes linked to the WiFi node.
+    /// </summary>
     public class WiFiNode : Node
     {
         private List<Node> _connectedNodes = new();
@@ -51,7 +54,7 @@ namespace IG.NodeSystem
             var visited = new HashSet<Node>();
             var toRemove = new HashSet<Node>(_connectedNodes);
 
-            CheckConnections(this, visited, toRemove);
+            CheckValidConnections(this, visited, toRemove);
 
             // Remove nodes that are no longer connected
             foreach (var node in toRemove)
@@ -61,7 +64,7 @@ namespace IG.NodeSystem
         }
 
         // Recursive method to check all connections starting from a given node
-        private void CheckConnections(Node node, HashSet<Node> visited, HashSet<Node> toRemove)
+        private void CheckValidConnections(Node node, HashSet<Node> visited, HashSet<Node> toRemove)
         {
             if (node == null || visited.Contains(node))
                 return;
@@ -80,7 +83,7 @@ namespace IG.NodeSystem
             {
                 if (neighbor != null && !visited.Contains(neighbor))
                 {
-                    CheckConnections(neighbor, visited, toRemove);
+                    CheckValidConnections(neighbor, visited, toRemove);
                 }
 
                 // If this neighbor is in toRemove, it's still connected, so we shouldn't remove it

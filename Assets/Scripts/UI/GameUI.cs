@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IG.UI 
 {
+    /// <summary>
+    /// Handles main screen UI
+    /// </summary>
     public class GameUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI topScoreText;

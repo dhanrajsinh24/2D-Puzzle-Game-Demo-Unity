@@ -4,7 +4,8 @@ using UnityEngine;
 namespace IG.NodeSystem 
 {
     /// <summary>
-    /// Script enables the node to Rotate on click
+    /// Extends Node to add rotation functionality. 
+    /// Handles updating connections when the node is rotated.
     /// </summary>
     public class RotatableNode : Node, IRotatable
     {

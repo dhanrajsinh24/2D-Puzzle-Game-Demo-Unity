@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 namespace IG.UI 
 {
+    /// <summary>
+    /// Level scroll which handles all level lock / unlock visuals
+    /// </summary>
     public class LevelScrollView : FadeScreen
     {
         [SerializeField] private Button levelButtonPrefab;
