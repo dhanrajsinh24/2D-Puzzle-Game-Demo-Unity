@@ -87,10 +87,5 @@ namespace IG.Controller
                 return null;
             }
         }
-
-        Node IGrid.GetNodeAt(int row, int column)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
