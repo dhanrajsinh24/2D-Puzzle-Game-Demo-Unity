@@ -22,12 +22,14 @@ public abstract class FadeScreen : MonoBehaviour, IFade
     public virtual void FadeIn()
     {
         animationState.speed = 1f; // Play at normal speed
+        animationState.time = 0; // Set the time to the end of the animation
         screenAnimation.Play();
     }
 
     public virtual void FadeOut()
     {
         animationState.speed = -1f; // Reverse the animation
+        animationState.time = animationState.length; // Set the time to the end of the animation
         screenAnimation.Play();
     }
 

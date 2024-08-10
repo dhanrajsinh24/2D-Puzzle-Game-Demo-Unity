@@ -25,6 +25,7 @@ namespace IG.Controller
             if(!CircuitValidation) CircuitValidation = GetComponent<CircuitValidation>();
             CircuitValidation.Initialize(LevelConfig.TotalComputers);
 
+            GridTransform = gridGroup.transform;
             nodeFactory.Initialize(this, GridTransform, levelConfig.gridType, CircuitValidation);
             
             GenerateGrid();
