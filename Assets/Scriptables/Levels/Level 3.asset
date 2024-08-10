@@ -45,5 +45,5 @@ MonoBehaviour:
     nodeType: 3
     initialRotation: 0
   - nodePrefab: {fileID: 6550401670723040388, guid: a88c656d482db0b4d86daf439e82cca9, type: 3}
-    nodeType: 2
+    nodeType: 1
     initialRotation: 3
