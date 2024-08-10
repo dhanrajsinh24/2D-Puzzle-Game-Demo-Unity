@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 namespace IG.Level
 {
@@ -42,6 +43,7 @@ namespace IG.Level
         public int maxMoves;
         public int rows;
         public int columns;
+        public int TotalComputers {get; private set;}
         public NodeData[] grid;
 
         private void OnValidate()
@@ -78,6 +80,15 @@ namespace IG.Level
             {
                 Debug.LogError($"{name} Grid does not have valid rows or colums or Grid size is not valid");
             }
+
+            UpdateTotalComputerSize();
+        }
+
+        private void UpdateTotalComputerSize() 
+        {
+            TotalComputers = (from NodeData item in grid
+                                  where item.nodeType.Equals(NodeType.ComputerNode)
+                                  select item).Count();
         }
 
         public void SetGridElement(int row, int column, NodeData element)

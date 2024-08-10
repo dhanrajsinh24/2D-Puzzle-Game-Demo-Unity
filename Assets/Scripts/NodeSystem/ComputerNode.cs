@@ -1,22 +1,16 @@
 using IG.Controller;
+using IG.Level;
 
 namespace IG.NodeSystem 
 {
     public class ComputerNode : RotatableNode, IResultNode
     {
         private CircuitValidation _circuitValidation;
-        
-        private void Awake() 
+        public void AssignAdditional(CircuitValidation circuitValidation) 
         {
-            //Not a good way to get the reference but it should be fine for this demo game
-            //Should be assigned from the initialization when this Node is instantiated
-            //There are several other places in which Find is used
-            _circuitValidation = FindAnyObjectByType<CircuitValidation>();
-            
-            //Register as a computer
-            _circuitValidation.TotalComputers++;
+            _circuitValidation = circuitValidation;
         }
-        
+
         protected override void UpdateVisualFeedback()
         {
             base.UpdateVisualFeedback();

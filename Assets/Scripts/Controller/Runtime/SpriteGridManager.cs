@@ -4,25 +4,38 @@ using IG.NodeSystem;
 using UnityEngine;
 namespace IG.Controller 
 {
+    /// <summary>
+    /// This handles making the grid and assign appropriate nodes
+    /// </summary>
     public class SpriteNodeGrid : MonoBehaviour, IGrid
     {
         [SerializeField] private Grid gridGroup; // Grid parent
-        private LevelConfig _levelConfig; // Level data will be used from this config
+        [SerializeField] private NodeFactory nodeFactory;
         private Node[,] _nodeGrid; // All nodes in the grid are stored here
+
+        public Transform GridTransform { get; set; }
+        public CircuitValidation CircuitValidation { get; set; }
+        public LevelConfig LevelConfig { get; set; }
 
         public void Initialize(LevelConfig levelConfig)
         {
-            _levelConfig = levelConfig;
-            _levelConfig.Initialize(gridGroup);
+            LevelConfig = levelConfig;
+            LevelConfig.Initialize(gridGroup);
+
+            if(!CircuitValidation) CircuitValidation = GetComponent<CircuitValidation>();
+            CircuitValidation.Initialize(LevelConfig.TotalComputers);
+
+            nodeFactory.Initialize(this, GridTransform, levelConfig.gridType, CircuitValidation);
+            
             GenerateGrid();
         }
 
         private void GenerateGrid()
         {
-            float nodeSize = _levelConfig.nodeSize;
-            float spacing = _levelConfig.spacing;
-            int rows = _levelConfig.rows;
-            int columns = _levelConfig.columns;
+            float nodeSize = LevelConfig.nodeSize;
+            float spacing = LevelConfig.spacing;
+            int rows = LevelConfig.rows;
+            int columns = LevelConfig.columns;
 
             // Initialize nodeGrid with the required size for the current level
             _nodeGrid = new Node[rows, columns];
@@ -42,12 +55,11 @@ namespace IG.Controller
             {
                 for (int column = 0; column < columns; column++)
                 {
-                    var nodeData = _levelConfig.GetGridElement(row, column);
+                    var nodeData = LevelConfig.GetGridElement(row, column);
                     if (nodeData != null)
                     {
                         // Initialize the node with its specific data from level config
-                        _nodeGrid[row, column] = NodeFactory.CreateNode(nodeData, gridGroup.transform,
-                        row, column, _levelConfig.gridType, this);
+                        _nodeGrid[row, column] = nodeFactory.CreateNode(nodeData, row, column);
 
                         if(_nodeGrid[row, column] == null) continue; //It is empty node and should be ignored 
 
@@ -64,7 +76,7 @@ namespace IG.Controller
 
         public Node GetNodeAt(int row, int column)
         {
-            if (row >= 0 && row < _levelConfig.rows && column >= 0 && column < _levelConfig.columns)
+            if (row >= 0 && row < LevelConfig.rows && column >= 0 && column < LevelConfig.columns)
             {
                 //Debug.Log($"Requested node ({row}, {column}).");
                 return _nodeGrid[row, column];
@@ -74,6 +86,11 @@ namespace IG.Controller
                 //Debug.LogWarning($"Requested node at ({row}, {column}) is out of bounds.");
                 return null;
             }
+        }
+
+        Node IGrid.GetNodeAt(int row, int column)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

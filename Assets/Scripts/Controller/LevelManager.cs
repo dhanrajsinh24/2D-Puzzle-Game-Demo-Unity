@@ -44,10 +44,10 @@ namespace IG.Controller
             uiManager.Initialize(this, databaseManager);
 
             _scoreManager = new ScoreManager();
+            _addressableLoader = new AddressableLoader();
+
             var nodeClickManager = gameObject.AddComponent<NodeClickManager>();
             nodeClickManager.Initialize(_scoreManager);
-
-            _addressableLoader = new AddressableLoader();
         }
 
         private void OnEnable() 

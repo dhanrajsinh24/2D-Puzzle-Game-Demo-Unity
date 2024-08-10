@@ -1,27 +1,43 @@
 using IG.Controller;
-using IG.Level;
 using IG.NodeSystem;
 using UnityEngine;
+using static IG.Level.LevelConfig;
 
 namespace IG.Factory
 {
-    public static class NodeFactory
+    /// <summary>
+    /// Handles creating Various nodes
+    /// Attached to Grid object
+    /// </summary>
+    public class NodeFactory : MonoBehaviour
     {
-        public static Node CreateNode(LevelConfig.NodeData nodeData, Transform parent, 
-        int row, int column, LevelConfig.GridType gridType, IGrid gridManager)
+        private IGrid _gridManager;
+        private Transform _parent;
+        private GridType _gridType;
+        private CircuitValidation _circuitValidation;
+
+        public void Initialize(IGrid gridManager, Transform parent, GridType gridType, CircuitValidation circuitValidation) 
         {
-            if(nodeData.nodeType.Equals(LevelConfig.NodeType.EmptyNode))
+            _gridManager = gridManager;
+            _parent = parent;
+            _gridType = gridType;
+            _circuitValidation = circuitValidation;
+        }
+
+        public Node CreateNode(NodeData nodeData, int row, int column)
+        {
+            if(nodeData.nodeType.Equals(NodeType.EmptyNode))
             {
                 Debug.Log($"Empty at position ({row}, {column})");
                 
                 // Instantiate the Empty node to fill the array space
-                Object.Instantiate(nodeData.nodePrefab, parent);
+                Instantiate(nodeData.nodePrefab, _parent);
 
                 return null;
             }
             
             // Instantiate the Node
-            var nodeObj = Object.Instantiate(nodeData.nodePrefab, parent);
+            var nodeObj = Instantiate(nodeData.nodePrefab, _parent);
             var node = nodeObj.GetComponent<Node>();
 
             var initialConnectibleSides = nodeObj.GetComponent<InitialConnectibleSides>();
@@ -33,8 +49,10 @@ namespace IG.Factory
             var initialRotation = nodeData.initialRotation;
             
             // Initialize the node with its data and apply the required rotation
-            node.Initialize(row, column, connectableSides, gridManager, gridType);
+            node.Initialize(row, column, connectableSides, _gridManager, _gridType);
             node.ApplyInitialRotation(initialRotation);
+
+            if(node is IResultNode) (node as IResultNode).AssignAdditional(_circuitValidation);
 
             return node;
         }

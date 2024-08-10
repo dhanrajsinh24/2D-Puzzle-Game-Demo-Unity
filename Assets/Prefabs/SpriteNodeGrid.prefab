@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7676767522954647370}
   - component: {fileID: 7312012593193323172}
   - component: {fileID: 6524190613740913943}
+  - component: {fileID: 2498189511534724552}
+  - component: {fileID: 6178144367078565155}
   m_Layer: 0
   m_Name: SpriteNodeGrid
   m_TagString: Untagged
@@ -58,3 +60,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridGroup: {fileID: 7312012593193323172}
+  nodeFactory: {fileID: 2498189511534724552}
+--- !u!114 &2498189511534724552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066479546988510409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fae3c571515f0f4385d7902480adfc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6178144367078565155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066479546988510409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaba0a30778a70142a5e649e2f6bd530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
