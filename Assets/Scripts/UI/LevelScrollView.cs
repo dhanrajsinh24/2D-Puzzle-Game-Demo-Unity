@@ -101,7 +101,7 @@ namespace IG.UI
         private void LevelButtonClicked(int level) 
         {
             Debug.Log($"Level button {level}");
-            FadeOut();
+            ToggleFade();
 
             StartCoroutine(LoadLevel(level));
         }

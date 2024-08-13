@@ -1,4 +1,5 @@
 using System;
+using IG.Command;
 using IG.Level;
 using IG.Utils;
 using UnityEngine;
@@ -33,6 +34,7 @@ namespace IG.Controller
 
         private void Initialize() 
         {
+            // Set maximum target framerate
             Application.targetFrameRate = 60;
 
             if (databaseManager == null)
@@ -41,6 +43,7 @@ namespace IG.Controller
             }
             _currentLevel = databaseManager.Initialize(this);
 
+            // Initialize UIManager which handles UI communication
             if (uiManager == null)
             {
                 uiManager = FindObjectOfType<UIManager>();
@@ -50,8 +53,10 @@ namespace IG.Controller
             _scoreManager = new ScoreManager();
             _addressableLoader = new AddressableLoader();
 
+            // Add required scripts to handle node clicking
             var nodeClickManager = gameObject.AddComponent<NodeClickManager>();
-            nodeClickManager.Initialize(_scoreManager);
+            var clickCommandExecutor = gameObject.AddComponent<ClickCommandExecutor>();
+            nodeClickManager.Initialize(clickCommandExecutor, _scoreManager);
         }
 
         private void OnEnable() 

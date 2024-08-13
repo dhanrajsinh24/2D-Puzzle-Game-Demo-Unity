@@ -32,7 +32,8 @@ namespace IG.Level
             public int initialRotation; // Number of rotations (0 for no rotation)
         }
 
-        public GridType gridType = GridType.Square;
+        // Level Grid type (read only) - Only Square is working at the moment
+        public GridType gridType {get;} = GridType.Square;
         public float nodeSize = 100f;
         public float spacing = 5f;
 

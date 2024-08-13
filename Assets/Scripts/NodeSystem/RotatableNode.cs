@@ -9,19 +9,18 @@ namespace IG.NodeSystem
     /// </summary>
     public class RotatableNode : Node, IRotatable
     {
-        private bool _isRotating;
         private Coroutine _rotateCoroutine;
         private float _lastTargetZRotation;
 
-        public override void NodeClicked()
+        public override IEnumerator NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
-            Rotate();
+            yield return Rotate();
         }
 
-        public void Rotate()
+        public IEnumerator Rotate()
         {
-            RotateBy90();
+            yield return RotateBy90();
 
             ShiftConnectibleSides();
 
@@ -30,8 +29,6 @@ namespace IG.NodeSystem
 
         private IEnumerator RotateOverTime(float targetZRotation)
         {
-            _isRotating = true;
-
             float elapsedTime = 0f;
             float duration = 0.1f; // Adjust the duration for smoothness
             Vector3 startingEulerAngles = rotateTransform.eulerAngles;
@@ -47,11 +44,10 @@ namespace IG.NodeSystem
             }
 
             rotateTransform.eulerAngles = new Vector3(startingEulerAngles.x, startingEulerAngles.y, _lastTargetZRotation);
-            _isRotating = false;
         }
 
         // Rotate the Node by 90 degrees clockwise
-        private void RotateBy90()
+        private IEnumerator RotateBy90()
         {
             if (_rotateCoroutine != null) 
             {
@@ -59,8 +55,10 @@ namespace IG.NodeSystem
             }
 
             float currentZRotation = rotateTransform.eulerAngles.z;
-            float newZRotation = currentZRotation - 90f; // Rotate counterclockwise by 90 degrees
-            _rotateCoroutine = StartCoroutine(RotateOverTime(newZRotation)); 
+            
+            // Rotate counterclockwise by 90 degrees
+            float newZRotation = currentZRotation - 90f; 
+            yield return RotateOverTime(newZRotation);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using IG.Controller;
 using static IG.Level.LevelConfig;
+using System.Collections;
 
 namespace IG.NodeSystem 
 {
@@ -219,6 +220,6 @@ namespace IG.NodeSystem
             _colorFeedback.ToggleGlow(IsConnectedToWifi);
         }
 
-        public abstract void NodeClicked();
+        public abstract IEnumerator NodeClicked();
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,13 +17,17 @@ namespace IG.NodeSystem
             SetConnectionStatus(this);
         }
 
-        public override void NodeClicked()
+        public override IEnumerator NodeClicked()
         {
             Debug.Log($"{gameObject.name} clicked");
             if(errorFeedback != null) 
             {
                 errorFeedback.Play();
             }
+
+            // Wait for the error animation to be played
+            float seconds = errorFeedback.clip.length;
+            yield return new WaitForSeconds(seconds);
         }
 
         // Method to add a connected node

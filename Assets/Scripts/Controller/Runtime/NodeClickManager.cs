@@ -1,4 +1,4 @@
-using IG.NodeSystem;
+using IG.Command;
 using UnityEngine;
 
 namespace IG.Controller
@@ -10,13 +10,14 @@ namespace IG.Controller
     {
         private int _layerMask;
         private bool _isClickable;
-        private ScoreManager _scoreManager;
         private float _lastTouchTime; // Tracks the last time a touch input was registered
-        private const float _touchCooldown = 0.15f; // The cooldown time in seconds
-
-        public void Initialize(ScoreManager scoreManager) 
+        private const float _touchCooldown = 0; // The cooldown time in seconds
+        private ClickCommandExecutor _clickCommandExecutor;
+        
+        public void Initialize(ClickCommandExecutor clickCommandExecutor, ScoreManager scoreManager) 
         {
-            _scoreManager = scoreManager;
+            _clickCommandExecutor = clickCommandExecutor;
+            _clickCommandExecutor.Initialize(scoreManager);
 
             // Set up a layer mask to only include the "Node" layer
             int nodeLayer = LayerMask.NameToLayer("Node");
@@ -47,9 +48,10 @@ namespace IG.Controller
             // Check if the cooldown period has passed since the last touch
             if (Time.time - _lastTouchTime < _touchCooldown) return;
 
-            if (Input.touchCount > 0)
+            // Handle multiple touches
+            for (int i = 0; i < Input.touchCount; i++)
             {
-                Touch touch = Input.GetTouch(0);
+                Touch touch = Input.GetTouch(i);
                 if (touch.phase == TouchPhase.Began)
                 {
                     Ray ray = Camera.main.ScreenPointToRay(touch.position);
@@ -59,8 +61,8 @@ namespace IG.Controller
 
                     if (hit.collider != null)
                     {
-                        _lastTouchTime = Time.time; // Update the last touch time
-                        NodeClicked(hit.collider.gameObject);
+                        // Start executing clicked node's command
+                        _clickCommandExecutor.ClickCommand(hit.collider.gameObject);
                     }
                 }
             }
@@ -78,17 +80,13 @@ namespace IG.Controller
                 if (hit.collider != null)
                 {
                     _lastTouchTime = Time.time; // Update the last touch time
-                    NodeClicked(hit.collider.gameObject);
+                    
+                    // Start executing clicked node's command
+                    _clickCommandExecutor.ClickCommand(hit.collider.gameObject);
                 }
             }
 
             #endif
-        }
-
-        private void NodeClicked(GameObject clickedNode)
-        {
-            clickedNode.GetComponent<Node>().NodeClicked();
-            _scoreManager.PlayerMoves++;
         }
 
         private void StartNodeClick(int _, int __)

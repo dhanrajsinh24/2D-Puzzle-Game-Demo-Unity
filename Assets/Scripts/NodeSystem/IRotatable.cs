@@ -1,7 +1,9 @@
+using System.Collections;
+
 namespace IG.NodeSystem 
 {
     internal interface IRotatable
     {
-        void Rotate();
+        IEnumerator Rotate();
     }
 }
