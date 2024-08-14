@@ -158,6 +158,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 439666996}
   screenAnimation: {fileID: 1550642803}
   ringScalingAnimation: {fileID: 932928380}
+  levelScrollButton: {fileID: 2036968088}
   levelButtonPrefab: {fileID: 757821162976723726, guid: fe89def9674692d428bd28953b090b18, type: 3}
   contentParent: {fileID: 246958061}
 --- !u!114 &96954345
@@ -7795,7 +7796,7 @@ GameObject:
   - component: {fileID: 2036968089}
   - component: {fileID: 2036968088}
   m_Layer: 5
-  m_Name: showLevelsButton
+  m_Name: levelScrollButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

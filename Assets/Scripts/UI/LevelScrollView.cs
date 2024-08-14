@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using IG.Controller;
@@ -13,6 +14,7 @@ namespace IG.UI
     /// </summary>
     public class LevelScrollView : FadeScreen
     {
+        [SerializeField] private Button levelScrollButton;
         [SerializeField] private Button levelButtonPrefab;
         [SerializeField] private Transform contentParent;
         private AddressableLoader _addressableLoader;
@@ -29,11 +31,13 @@ namespace IG.UI
         private void OnEnable() 
         {
             LevelManager.OnLevelLoaded += UpdateUnlockedLevelButton;
+            LevelManager.OnLevelCompleted += DisableLevelScroll;
         }
 
         private void OnDisable() 
         {
             LevelManager.OnLevelLoaded -= UpdateUnlockedLevelButton;
+            LevelManager.OnLevelCompleted -= DisableLevelScroll;
         }
 
         protected override void AssignAnimationState()
@@ -91,12 +95,21 @@ namespace IG.UI
 
         private void UpdateUnlockedLevelButton(int level, int _)
         {
+            // Level scroll button should be enabled now due to new level load
+            levelScrollButton.interactable = true;
+
             //If the level scroll is not ready, we dont need to update it
             if(_levelButtons == null) return;
 
             _lastUnlockedLevel = level;
             _levelButtons[level - 1].UnlockLevel(true);
         }
+
+        private void DisableLevelScroll(int _, int __)
+        {
+            // Level scroll button should be disabled now due to level completion screen
+            levelScrollButton.interactable = false;
+        } 
 
         private void LevelButtonClicked(int level) 
         {
