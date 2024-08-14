@@ -19,7 +19,10 @@ namespace IG.NodeSystem
 
         public override IEnumerator NodeClicked()
         {
+            #if UNITY_EDITOR
             Debug.Log($"{gameObject.name} clicked");
+            #endif
+            
             if(errorFeedback != null) 
             {
                 errorFeedback.Play();
@@ -35,7 +38,9 @@ namespace IG.NodeSystem
         {
             if (node != null && node != this && !_connectedNodes.Contains(node))
             {
+                #if UNITY_EDITOR
                 Debug.Log($"Adding {node.gameObject}");
+                #endif
                 _connectedNodes.Add(node);
                 node.SetConnectionStatus(this);
             }
@@ -46,7 +51,10 @@ namespace IG.NodeSystem
         {
             if (node != null && _connectedNodes.Contains(node))
             {
+                #if UNITY_EDITOR
                 Debug.Log($"Removing {node.gameObject}");
+                #endif
+                
                 _connectedNodes.Remove(node);
                 node.SetConnectionStatus(null);
             }
@@ -55,7 +63,6 @@ namespace IG.NodeSystem
         // Check all nodes connected to this WiFi node
         public void RevalidateConnections()
         {
-            Debug.Log($"RevalidateConnections");
             var visited = new HashSet<Node>();
             var toRemove = new HashSet<Node>(_connectedNodes);
 
@@ -64,6 +71,7 @@ namespace IG.NodeSystem
             // Remove nodes that are no longer connected
             foreach (var node in toRemove)
             {
+                if (!_connectedNodes.Contains(node)) continue;
                 RemoveConnectedNode(node);
             }
         }
@@ -71,28 +79,28 @@ namespace IG.NodeSystem
         // Recursive method to check all connections starting from a given node
         private void CheckValidConnections(Node node, HashSet<Node> visited, HashSet<Node> toRemove)
         {
-            if (node == null || visited.Contains(node))
+            if (node == null || !visited.Add(node))
                 return;
 
+            #if UNITY_EDITOR
             Debug.Log($"Checking {node.gameObject}");
-
-            visited.Add(node);
+            #endif
 
             if(node != this) 
             {
-                AddConnectedNode(node); // Ensure the node is in the connected set
+                AddConnectedNode(node); // Add the node in the connected set
             }
 
             // Get all neighbors and check their connections
             foreach (var neighbor in node.GetConnectableNeighbors())
             {
-                if (neighbor != null && !visited.Contains(neighbor))
+                if (neighbor != null)
                 {
                     CheckValidConnections(neighbor, visited, toRemove);
-                }
 
-                // If this neighbor is in toRemove, it's still connected, so we shouldn't remove it
-                toRemove.Remove(neighbor);
+                    // Add this neighbor node to be removed
+                    toRemove.Remove(neighbor);
+                }
             }
         }
     }

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 using IG.Controller;
 using static IG.Level.LevelConfig;
 using System.Collections;
@@ -21,7 +20,7 @@ namespace IG.NodeSystem
         protected GridType gridType;
         [SerializeField] private ColorFeedback _colorFeedback;
         [SerializeField] protected Transform rotateTransform;
-        public WiFiNode ConnectedWiFiNode {get; private set;} // Reference to the connected WiFiNode
+        public WiFiNode ConnectedWiFiNode {get; protected set;} // Reference to the connected WiFiNode
 
         public virtual void Initialize(int row, int column, bool[] initialConnectableSides, 
         IGrid gridManager, GridType gridType)
@@ -73,35 +72,6 @@ namespace IG.NodeSystem
                 ConnectableSides[i] = ConnectableSides[i - 1];
             }
             ConnectableSides[0] = lastSide;
-        }
-
-        public void CheckConnections()
-        {
-            // Get all connectable neighbors
-            var connectableNeighbors = GetConnectableNeighbors().ToList();
-
-            // Check if the node is connected to WiFi through any of its neighbors
-            bool isConnected = connectableNeighbors.Any(neighbor => neighbor is WiFiNode || neighbor.IsConnectedToWifi);
-
-            // If the node was connected to WiFi or is now connected, trigger WiFi node to revalidate connections
-            if (isConnected && !ConnectedWiFiNode)
-            {
-                var neighborWifi = connectableNeighbors.OfType<WiFiNode>().FirstOrDefault();
-                if(neighborWifi == null) 
-                {
-                    neighborWifi = connectableNeighbors.First(neighbor => neighbor.IsConnectedToWifi).ConnectedWiFiNode;
-                }
-
-                if(neighborWifi == null) Debug.LogError($"wifi not found");
-                else Debug.Log($"Wifi {neighborWifi.name}");
-                
-                ConnectedWiFiNode = neighborWifi;
-            }
-
-            if(ConnectedWiFiNode != null) 
-            {
-                ConnectedWiFiNode.RevalidateConnections(); 
-            }
         }
 
         // Get all nodes that are neighbors and connectable with the current node
